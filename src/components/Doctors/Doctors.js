@@ -11,6 +11,8 @@ function Doctors() {
   const [newDoctor, setNewDoctor] = useState({
     f_name: '',
     l_name: '',
+    specialization:'',
+    available_days:'',
     phone: '',
     email: '',
     pass: '',
@@ -39,6 +41,8 @@ function Doctors() {
     setNewDoctor({
       f_name: '',
       l_name: '',
+      specialization:'',
+      available_days:'',
       phone: '',
       email: '',
       pass: '',
@@ -70,6 +74,8 @@ function Doctors() {
       formData.append('f_name', newDoctor.f_name);
       formData.append('l_name', newDoctor.l_name);
       formData.append('phone', newDoctor.phone);
+      formData.append('specialization', newDoctor.specialization);
+      formData.append('available_days', newDoctor.available_days);
       formData.append('email', newDoctor.email);
       formData.append('pass', newDoctor.pass);
       formData.append('image', newDoctor.image);
@@ -139,6 +145,27 @@ function Doctors() {
                 type="text"
                 name="l_name"
                 value={newDoctor.l_name}
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+     
+            <Form.Group controlId="formSpecialization">
+              <Form.Label>Specialization</Form.Label>
+              <Form.Control
+                type="text"
+                name="specialization"
+                value={newDoctor.specialization}
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+
+            
+            <Form.Group controlId="formAvailableDays">
+              <Form.Label>Available Days</Form.Label>
+              <Form.Control
+                type="text"
+                name="available_days"
+                value={newDoctor.available_days}
                 onChange={handleInputChange}
               />
             </Form.Group>

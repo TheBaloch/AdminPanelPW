@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 function ProductItem({ product, onDelete, onUpdateProduct }) {
-  const imgURL = `http://localhost:5000${product.image}`;
+  const imgURL = `http://localhost:5000/${product.image}`;
   const [showModal, setShowModal] = useState(false);
   const [editedProduct, setEditedProduct] = useState({
     name: product.name,

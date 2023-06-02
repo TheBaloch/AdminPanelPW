@@ -9,6 +9,8 @@ function Doctor({ doctor, onDelete, onUpdateDoctor }) {
   const [editedDoctor, setEditedDoctor] = useState({
     f_name: doctor.f_name,
     l_name: doctor.l_name,
+    specialization: doctor.specialization,
+    available_days: doctor.available_days,
     phone: doctor.phone,
     email: doctor.email,
     pass: doctor.pass,
@@ -43,6 +45,8 @@ function Doctor({ doctor, onDelete, onUpdateDoctor }) {
     const formData = new FormData();
     formData.append('f_name', editedDoctor.f_name);
     formData.append('l_name', editedDoctor.l_name);
+    formData.append('specialization', editedDoctor.specialization);
+    formData.append('available_days', editedDoctor.available_days);
     formData.append('phone', editedDoctor.phone);
     formData.append('email', editedDoctor.email);
     formData.append('pass', editedDoctor.pass);
@@ -110,6 +114,27 @@ function Doctor({ doctor, onDelete, onUpdateDoctor }) {
                 onChange={handleInputChange}
               />
             </Form.Group>
+
+            <Form.Group controlId="formspecialization">
+              <Form.Label>Specialization</Form.Label>
+              <Form.Control
+                type="text"
+                name="specialization"
+                value={editedDoctor.specialization}
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formAvailableDays">
+              <Form.Label>Available Days</Form.Label>
+              <Form.Control
+                type="text"
+                name="available_days"
+                value={editedDoctor.available_days}
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+
             <Form.Group controlId="formPhone">
               <Form.Label>Phone</Form.Label>
               <Form.Control
