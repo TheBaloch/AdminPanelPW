@@ -2,29 +2,53 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ProductItem from './ProductItem';
 
-export default function Products() {
+function Products() {
   const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    // Make the API request to fetch products from MongoDB
-    const fetchProducts = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/api/products');
-        setProducts(response.data);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    };
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/products');
+      setProducts(response.data);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
 
+  useEffect(() => {
     fetchProducts();
   }, []);
-  console.log(products);
+
+  const handleAdd = () => {
+    alert('Add New');
+  };
+
+  const handleProductDelete = async (productId) => {
+    const confirmDelete = window.confirm(
+      'Are you sure you want to delete this product?'
+    );
+    if (confirmDelete) {
+      try {
+        await axios.delete(`http://localhost:5000/api/products/${productId}`);
+        fetchProducts(); // Fetch the updated list of products after successful deletion
+      } catch (error) {
+        console.error('Error deleting product:', error);
+      }
+    }
+  };
+
   return (
-    <div>
-      <button>Add New</button>
+    <div style={{ width: '30rem' }}>
+      <button onClick={handleAdd}>Add New</button>
+      <h3>All Products</h3>
       {products.map((product) => (
-        <ProductItem key={product._id} product={product} />
+        <ProductItem
+          key={product._id}
+          product={product}
+          onDelete={handleProductDelete}
+        />
       ))}
     </div>
   );
 }
+
+export default Products;
