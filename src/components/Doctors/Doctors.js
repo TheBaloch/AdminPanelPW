@@ -148,7 +148,6 @@ function Doctors() {
                 onChange={handleInputChange}
               />
             </Form.Group>
-     
             <Form.Group controlId="formSpecialization">
               <Form.Label>Specialization</Form.Label>
               <Form.Control
@@ -158,8 +157,6 @@ function Doctors() {
                 onChange={handleInputChange}
               />
             </Form.Group>
-
-            
             <Form.Group controlId="formAvailableDays">
               <Form.Label>Available Days</Form.Label>
               <Form.Control
