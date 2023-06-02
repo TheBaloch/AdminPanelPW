@@ -16,7 +16,7 @@ const Sidebar = ({ handleSelection }) => {
             width="16"
             height="16"
             fill="currentColor"
-            class="bi bi-bag-dash"
+            className="bi bi-bag-dash"
             viewBox="0 0 16 16"
           >
             <path
@@ -38,7 +38,7 @@ const Sidebar = ({ handleSelection }) => {
             width="16"
             height="16"
             fill="currentColor"
-            class="bi bi-person-circle"
+            className="bi bi-person-circle"
             viewBox="0 0 16 16"
           >
             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
@@ -60,7 +60,7 @@ const Sidebar = ({ handleSelection }) => {
             width="16"
             height="16"
             fill="currentColor"
-            class="bi bi-balloon-heart"
+            className="bi bi-balloon-heart"
             viewBox="0 0 16 16"
           >
             <path
@@ -81,7 +81,7 @@ const Sidebar = ({ handleSelection }) => {
             width="16"
             height="16"
             fill="currentColor"
-            class="bi bi-life-preserver"
+            className="bi bi-life-preserver"
             viewBox="0 0 16 16"
           >
             <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm6.43-5.228a7.025 7.025 0 0 1-3.658 3.658l-1.115-2.788a4.015 4.015 0 0 0 1.985-1.985l2.788 1.115zM5.228 14.43a7.025 7.025 0 0 1-3.658-3.658l2.788-1.115a4.015 4.015 0 0 0 1.985 1.985L5.228 14.43zm9.202-9.202-2.788 1.115a4.015 4.015 0 0 0-1.985-1.985l1.115-2.788a7.025 7.025 0 0 1 3.658 3.658zm-8.087-.87a4.015 4.015 0 0 0-1.985 1.985L1.57 5.228A7.025 7.025 0 0 1 5.228 1.57l1.115 2.788zM8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
@@ -99,7 +99,7 @@ const Sidebar = ({ handleSelection }) => {
             width="16"
             height="16"
             fill="currentColor"
-            class="bi bi-cart2"
+            className="bi bi-cart2"
             viewBox="0 0 16 16"
           >
             <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
