@@ -62,6 +62,7 @@ import DayCare from "../../components/DayCare/DayCare";
 import Users from "../../components/Users/Users";
 import Products from "../../components/Products/Products";
 import Insurance from "../../components/Insurance/Insurance";
+import Dashboard from "../../components/Dashboard/Dashboard";
 import "./Home.css";
 import Doctors from "../../components/Doctors/Doctors";
 
@@ -76,6 +77,8 @@ const MainHome = () => {
   // Function to render the selected component
   const renderSelectedComponent = () => {
     switch (selectedComponent) {
+      case "dashboard":
+        return <Dashboard />;
       case "products":
         return <Products />;
       case "users":

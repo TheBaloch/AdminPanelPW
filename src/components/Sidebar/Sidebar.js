@@ -1,15 +1,45 @@
-import React from 'react';
-import './Sidebar.css';
+// import React from "react";
+import React, { useState } from "react";
+import "./Sidebar.css";
+
+// import { AiFillMedicineBox } from "react-icons/ai";
 
 const Sidebar = ({ handleSelection }) => {
+  const [selectedButton, setSelectedButton] = useState("");
+
+  const handleButtonClick = (buttonName) => {
+    setSelectedButton(buttonName);
+    handleSelection(buttonName);
+  };
+
   return (
     <div className="sidebar">
       <img
-        style={{ height: '100%', width: '100%' }}
+        style={{ height: "100%", width: "100%" }}
         alt=""
-        src={'./logo.png'}
+        src={"./logo.png"}
       ></img>
+
       <ul className="sideBar-ul">
+        <li>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="1em"
+            viewBox="0 0 512 512"
+            fill="currentColor"
+          >
+            <path d="M64 64c0-17.7-14.3-32-32-32S0 46.3 0 64V400c0 44.2 35.8 80 80 80H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H80c-8.8 0-16-7.2-16-16V64zm406.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L320 210.7l-57.4-57.4c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L240 221.3l57.4 57.4c12.5 12.5 32.8 12.5 45.3 0l128-128z" />
+          </svg>
+
+          <button
+            className={`button_custon ${
+              selectedButton === "dashboard" ? "selected" : ""
+            }`}
+            onClick={() => handleButtonClick("dashboard")}
+          >
+            Dashboard
+          </button>
+        </li>
         <li>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -26,11 +56,19 @@ const Sidebar = ({ handleSelection }) => {
             <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
           </svg>
           <button
-            className="button_custon"
-            onClick={() => handleSelection('products')}
+            className={`button_custon ${
+              selectedButton === "products" ? "selected" : ""
+            }`}
+            onClick={() => handleButtonClick("products")}
           >
             Products
           </button>
+          {/* <button
+            className="button_custon"
+            onClick={() => handleSelection("products")}
+          >
+            Products
+          </button> */}
         </li>
         <li>
           <svg
@@ -48,30 +86,28 @@ const Sidebar = ({ handleSelection }) => {
             />
           </svg>
           <button
-            className="button_custon"
-            onClick={() => handleSelection('users')}
+            className={`button_custon ${
+              selectedButton === "users" ? "selected" : ""
+            }`}
+            onClick={() => handleButtonClick("users")}
           >
-            Users
+            users
           </button>
         </li>
         <li>
           <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
             fill="currentColor"
-            className="bi bi-bag-dash"
-            viewBox="0 0 16 16"
+            xmlns="http://www.w3.org/2000/svg"
+            height="1em"
+            viewBox="0 0 448 512"
           >
-            <path
-              fillRule="evenodd"
-              d="M5.5 10a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z"
-            />
-            <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
+            <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-96 55.2C54 332.9 0 401.3 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7c0-81-54-149.4-128-171.1V362c27.6 7.1 48 32.2 48 62v40c0 8.8-7.2 16-16 16H336c-8.8 0-16-7.2-16-16s7.2-16 16-16V424c0-17.7-14.3-32-32-32s-32 14.3-32 32v24c8.8 0 16 7.2 16 16s-7.2 16-16 16H256c-8.8 0-16-7.2-16-16V424c0-29.8 20.4-54.9 48-62V304.9c-6-.6-12.1-.9-18.3-.9H178.3c-6.2 0-12.3 .3-18.3 .9v65.4c23.1 6.9 40 28.3 40 53.7c0 30.9-25.1 56-56 56s-56-25.1-56-56c0-25.4 16.9-46.8 40-53.7V311.2zM144 448a24 24 0 1 0 0-48 24 24 0 1 0 0 48z" />
           </svg>
           <button
-            className="button_custon"
-            onClick={() => handleSelection('doctors')}
+            className={`button_custon ${
+              selectedButton === "doctors" ? "selected" : ""
+            }`}
+            onClick={() => handleButtonClick("doctors")}
           >
             Doctors
           </button>
@@ -91,8 +127,10 @@ const Sidebar = ({ handleSelection }) => {
             />
           </svg>
           <button
-            className="button_custon"
-            onClick={() => handleSelection('daycare')}
+            className={`button_custon ${
+              selectedButton === "daycare" ? "selected" : ""
+            }`}
+            onClick={() => handleButtonClick("daycare")}
           >
             Day Care
           </button>
@@ -108,9 +146,12 @@ const Sidebar = ({ handleSelection }) => {
           >
             <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm6.43-5.228a7.025 7.025 0 0 1-3.658 3.658l-1.115-2.788a4.015 4.015 0 0 0 1.985-1.985l2.788 1.115zM5.228 14.43a7.025 7.025 0 0 1-3.658-3.658l2.788-1.115a4.015 4.015 0 0 0 1.985 1.985L5.228 14.43zm9.202-9.202-2.788 1.115a4.015 4.015 0 0 0-1.985-1.985l1.115-2.788a7.025 7.025 0 0 1 3.658 3.658zm-8.087-.87a4.015 4.015 0 0 0-1.985 1.985L1.57 5.228A7.025 7.025 0 0 1 5.228 1.57l1.115 2.788zM8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
           </svg>
+
           <button
-            className="button_custon"
-            onClick={() => handleSelection('insurance')}
+            className={`button_custon ${
+              selectedButton === "insurance" ? "selected" : ""
+            }`}
+            onClick={() => handleButtonClick("insurance")}
           >
             Insurance
           </button>
@@ -127,8 +168,10 @@ const Sidebar = ({ handleSelection }) => {
             <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
           </svg>
           <button
-            className="button_custon"
-            onClick={() => handleSelection('orders')}
+            className={`button_custon ${
+              selectedButton === "orders" ? "selected" : ""
+            }`}
+            onClick={() => handleButtonClick("orders")}
           >
             Orders
           </button>
