@@ -67,7 +67,7 @@ import "./Home.css";
 import Doctors from "../../components/Doctors/Doctors";
 
 const MainHome = () => {
-  const [selectedComponent, setSelectedComponent] = useState("products");
+  const [selectedComponent, setSelectedComponent] = useState("dashboard");
 
   // Function to handle sidebar selection
   const handleSidebarSelection = (component) => {
