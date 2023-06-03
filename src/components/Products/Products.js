@@ -533,16 +533,11 @@ function Products() {
   };
 
   const handleProductDelete = async (productId) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this product?"
-    );
-    if (confirmDelete) {
-      try {
-        await axios.delete(`http://localhost:5000/api/products/${productId}`);
-        fetchProducts(); // Fetch the updated list of products after successful deletion
-      } catch (error) {
-        console.error("Error deleting product:", error);
-      }
+    try {
+      await axios.delete(`http://localhost:5000/api/products/${productId}`);
+      fetchProducts(); // Fetch the updated list of products after successful deletion
+    } catch (error) {
+      console.error("Error deleting product:", error);
     }
   };
 
