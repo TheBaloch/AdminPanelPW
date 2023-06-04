@@ -45,7 +45,7 @@ function ProductItem({ product, onDelete, onUpdateProduct }) {
                     />
                     {product.name}
                   </td>
-                  <td className="value">catogery</td>
+                  <td className="value">{product.categoryext}</td>
 
                   <td className="value">
                     <Button
