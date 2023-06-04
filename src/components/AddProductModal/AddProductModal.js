@@ -46,16 +46,6 @@ function AddProductModal({
     setActiveStep(0);
   };
 
-  // formData.append("name", newProduct.name);
-  // formData.append("category", newProduct.category);
-  // formData.append("mainproduct", newProduct.mainproduct);
-  // formData.append("categoryext", newProduct.categoryext);
-  // formData.append("brand", newProduct.brand);
-  // formData.append("rating", newProduct.rating);
-  // formData.append("price", newProduct.price);
-  // formData.append("description", newProduct.description);
-  // formData.append("image", newProduct.image);
-
   return (
     <Modal show={showModal} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -70,10 +60,6 @@ function AddProductModal({
                 <StepContent>
                   <Box sx={{ mb: 2 }}>
                     {index === 0 && (
-                      // <button>
-                      //   label={`Step ${index + 1} Input`}
-                      //   // Add your input logic for the first step
-                      // </button>
                       <div>
                         <TextField
                           id="outlined-basic"
@@ -84,15 +70,6 @@ function AddProductModal({
                           value={newProduct.name}
                           onChange={handleInputChange}
                         />
-                        {/* <Form.Group controlId="formName">
-                          <Form.Label>Name</Form.Label>
-                          <Form.Control
-                            type="text"
-                            name="name"
-                            value={newProduct.name}
-                            onChange={handleInputChange}
-                          />
-                        </Form.Group>*/}
                         <FormControl>
                           <InputLabel id="main-product-label">
                             Product
@@ -227,10 +204,6 @@ function AddProductModal({
                       </div>
                     )}
                     {index === 1 && (
-                      // <button>
-                      //   label={`Step ${index + 1} Input`}
-                      //   // Add your dropdown logic for the second step
-                      // </button>
                       <div>
                         <Form.Group controlId="formvband">
                           <Form.Label>Brand</Form.Label>
@@ -278,6 +251,7 @@ function AddProductModal({
                   </Box>
                   <div>
                     {activeStep === steps.length - 1 ? (
+                      //
                       <Button variant="contained" onClick={handleProductSubmit}>
                         Submit
                       </Button>
@@ -309,31 +283,6 @@ function AddProductModal({
             </Paper>
           )}
         </Box>
-        {/* ?????????????????????????????????????????????????????????? */}
-        <Form onSubmit={handleProductSubmit}>
-          {/* <Form.Group controlId="formPrice">
-            <Form.Label>Price</Form.Label>
-            <Form.Control
-              type="text"
-              name="price"
-              value={newProduct.price}
-              onChange={handleInputChange}
-            />
-          </Form.Group>
-          <Form.Group controlId="formDescription">
-            <Form.Label>Description</Form.Label>
-            <Form.Control
-              as="textarea"
-              name="description"
-              value={newProduct.description}
-              onChange={handleInputChange}
-            />
-          </Form.Group> */}
-
-          {/* <Button variant="primary" type="submit">
-            Submit
-          </Button> */}
-        </Form>
       </Modal.Body>
     </Modal>
   );
