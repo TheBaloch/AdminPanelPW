@@ -143,235 +143,237 @@
 //     setActiveStep((prevActiveStep) => prevActiveStep + 1);
 //   };
 
-const handleBack = () => {
-  setActiveStep((prevActiveStep) => prevActiveStep - 1);
-};
-const renderStepContent = (step) => {
-  switch (step) {
-    case 0:
-      return (
-        <div style={{ display: "grid" }}>
-          <div>
-            <div style={{ marginLeft: "5%" }}>
-              <h5
-                style={{
-                  marginTop: "20px",
-                  marginBottom: "10px",
-                  color: "grey",
-                }}
-              >
-                Name*
-              </h5>
+//   const handleBack = () => {
+//     setActiveStep((prevActiveStep) => prevActiveStep - 1);
+//   };
+//   const renderStepContent = (step) => {
+//     switch (step) {
+//       case 0:
+//         return (
+//           <div style={{ display: "grid" }}>
+//             <div>
+//               <div style={{ marginLeft: "5%" }}>
+//                 <h5
+//                   style={{
+//                     marginTop: "20px",
+//                     marginBottom: "10px",
+//                     color: "grey",
+//                   }}
+//                 >
+//                   Name*
+//                 </h5>
 
-              <TextField
-                id="outlined-basic"
-                style={{ marginTop: "5px" }}
-                label="Title"
-                variant="outlined"
-                name="name"
-                value={newProduct.name}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <h5
-                style={{
-                  marginLeft: "5%",
-                  marginTop: "20px",
-                  marginBottom: "10px",
-                  color: "grey",
-                }}
-              >
-                Product*
-              </h5>
-              <div style={{ marginLeft: "5%", display: "flex" }}>
-                <FormControl>
-                  <InputLabel id="main-product-label">Product</InputLabel>
-                  <Select
-                    style={{ width: "160px" }}
-                    labelId="main-product-label"
-                    id="main-product-select"
-                    name="mainproduct"
-                    value={newProduct.mainproduct}
-                    onChange={handleInputChange}
-                    label="Product"
-                  >
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
-                    <MenuItem value="Food">Food</MenuItem>
-                    <MenuItem value="Accessories">Accessories</MenuItem>
-                  </Select>
-                </FormControl>
-                {/* <div style={{ marginLeft: "3%" }}>
-                    {newProduct.mainproduct === "Food" && (
-                      <FormControl>
-                        <InputLabel id="food-category-label">
-                          Food Category
-                        </InputLabel>
-                        <Select
-                          style={{ width: "190px" }}
-                          labelId="food-category-label"
-                          id="food-category-select"
-                          name="category"
-                          value={newProduct.category}
-                          onChange={handleInputChange}
-                          label="Food Category"
-                        >
-                          <MenuItem value="">
-                            <em>None</em>
-                          </MenuItem>
-                          <MenuItem value="Dog Food">Dog Food</MenuItem>
-                          <MenuItem value="Cat Food">Cat Food</MenuItem>
-                          <MenuItem value="Rat Food">Rat Food</MenuItem>
-                          <MenuItem value="Snake Food">Snake Food</MenuItem>
-                          <MenuItem value="Rabbit Food">Rabbit Food</MenuItem>
-                          <MenuItem value="Others Food">Others Food</MenuItem>
-                        </Select>
-                      </FormControl>
-                    )}
-                    {newProduct.mainproduct === "Accessories" && (
-                      <FormControl>
-                        <InputLabel id="accessories-category-label">
-                          Accessories Category
-                        </InputLabel>
-                        <Select
-                          style={{ width: "210px" }}
-                          labelId="accessories-category-label"
-                          id="accessories-category-select"
-                          name="category"
-                          value={newProduct.category}
-                          onChange={handleInputChange}
-                          label="Accessories Category"
-                        >
-                          <MenuItem value="">
-                            <em>None</em>
-                          </MenuItem>
-                          <MenuItem value="Dog Accessories">
-                            Dog Accessories
-                          </MenuItem>
-                          <MenuItem value="Cat Accessories">
-                            Cat Accessories
-                          </MenuItem>
-                          <MenuItem value="Rat Accessories">
-                            Rat Accessories
-                          </MenuItem>
-                          <MenuItem value="Snake Accessories">
-                            Snake Accessories
-                          </MenuItem>
-                          <MenuItem value="Rabbit Accessories">
-                            Rabbit Accessories
-                          </MenuItem>
-                          <MenuItem value="Others Accessories">
-                            Others Accessories
-                          </MenuItem>
-                        </Select>
-                      </FormControl>
-                    )}
-                  </div> */}
-                <div style={{ marginLeft: "3%" }}>
-                  {newProduct.mainproduct === "Accessories" && (
-                    <FormControl>
-                      <InputLabel id="accessories-category-label">
-                        Accessories Type
-                      </InputLabel>
-                      <Select
-                        style={{ width: "190px" }}
-                        labelId="accessories-category-label"
-                        id="accessories-category-select"
-                        name="categoryext"
-                        value={newProduct.categoryext}
-                        onChange={handleInputChange}
-                        required
-                        label="Accessories Type"
-                      >
-                        <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem>
-                        <MenuItem value="Belts">Belts</MenuItem>
-                        <MenuItem value="Beds">Beds</MenuItem>
-                        <MenuItem value="Shampoos">Shampoos</MenuItem>
-                        <MenuItem value="Toys">Toys</MenuItem>
-                        <MenuItem value="Bowls">Bowls</MenuItem>
-                        <MenuItem value="Clothes">Clothes</MenuItem>
-                        <MenuItem value="Carriers">Carriers</MenuItem>
-                        <MenuItem value="Collars">Collars</MenuItem>
-                        <MenuItem value="Leashes">Leashes</MenuItem>
-                        <MenuItem value="Grooming">Grooming Supplies</MenuItem>
-                        <MenuItem value="Travel">Travel Accessories</MenuItem>
-                        <MenuItem value="Others">others</MenuItem>
-                      </Select>
-                    </FormControl>
-                  )}
-                </div>
-              </div>
-            </div>
+//                 <TextField
+//                   id="outlined-basic"
+//                   style={{ marginTop: "5px" }}
+//                   label="Title"
+//                   variant="outlined"
+//                   name="name"
+//                   value={newProduct.name}
+//                   onChange={handleInputChange}
+//                 />
+//               </div>
+//               <div>
+//                 <h5
+//                   style={{
+//                     marginLeft: "5%",
+//                     marginTop: "20px",
+//                     marginBottom: "10px",
+//                     color: "grey",
+//                   }}
+//                 >
+//                   Product*
+//                 </h5>
+//                 <div style={{ marginLeft: "5%", display: "flex" }}>
+//                   <FormControl>
+//                     <InputLabel id="main-product-label">Product</InputLabel>
+//                     <Select
+//                       style={{ width: "160px" }}
+//                       labelId="main-product-label"
+//                       id="main-product-select"
+//                       name="mainproduct"
+//                       value={newProduct.mainproduct}
+//                       onChange={handleInputChange}
+//                       label="Product"
+//                     >
+//                       <MenuItem value="">
+//                         <em>None</em>
+//                       </MenuItem>
+//                       <MenuItem value="Food">Food</MenuItem>
+//                       <MenuItem value="Accessories">Accessories</MenuItem>
+//                     </Select>
+//                   </FormControl>
+//                   <div style={{ marginLeft: "3%" }}>
+//                     {newProduct.mainproduct === "Food" && (
+//                       <FormControl>
+//                         <InputLabel id="food-category-label">
+//                           Food Category
+//                         </InputLabel>
+//                         <Select
+//                           style={{ width: "190px" }}
+//                           labelId="food-category-label"
+//                           id="food-category-select"
+//                           name="category"
+//                           value={newProduct.category}
+//                           onChange={handleInputChange}
+//                           label="Food Category"
+//                         >
+//                           <MenuItem value="">
+//                             <em>None</em>
+//                           </MenuItem>
+//                           <MenuItem value="Dog Food">Dog Food</MenuItem>
+//                           <MenuItem value="Cat Food">Cat Food</MenuItem>
+//                           <MenuItem value="Rat Food">Rat Food</MenuItem>
+//                           <MenuItem value="Snake Food">Snake Food</MenuItem>
+//                           <MenuItem value="Rabbit Food">Rabbit Food</MenuItem>
+//                           <MenuItem value="Others Food">Others Food</MenuItem>
+//                         </Select>
+//                       </FormControl>
+//                     )}
+//                     {newProduct.mainproduct === "Accessories" && (
+//                       <FormControl>
+//                         <InputLabel id="accessories-category-label">
+//                           Accessories Category
+//                         </InputLabel>
+//                         <Select
+//                           style={{ width: "210px" }}
+//                           labelId="accessories-category-label"
+//                           id="accessories-category-select"
+//                           name="category"
+//                           value={newProduct.category}
+//                           onChange={handleInputChange}
+//                           label="Accessories Category"
+//                         >
+//                           <MenuItem value="">
+//                             <em>None</em>
+//                           </MenuItem>
+//                           <MenuItem value="Dog Accessories">
+//                             Dog Accessories
+//                           </MenuItem>
+//                           <MenuItem value="Cat Accessories">
+//                             Cat Accessories
+//                           </MenuItem>
+//                           <MenuItem value="Rat Accessories">
+//                             Rat Accessories
+//                           </MenuItem>
+//                           <MenuItem value="Snake Accessories">
+//                             Snake Accessories
+//                           </MenuItem>
+//                           <MenuItem value="Rabbit Accessories">
+//                             Rabbit Accessories
+//                           </MenuItem>
+//                           <MenuItem value="Others Accessories">
+//                             Others Accessories
+//                           </MenuItem>
+//                         </Select>
+//                       </FormControl>
+//                     )}
+//                   </div>
+//                   <div style={{ marginLeft: "3%" }}>
+//                     {newProduct.mainproduct === "Accessories" && (
+//                       <FormControl>
+//                         <InputLabel id="accessories-category-label">
+//                           Accessories Type
+//                         </InputLabel>
+//                         <Select
+//                           style={{ width: "190px" }}
+//                           labelId="accessories-category-label"
+//                           id="accessories-category-select"
+//                           name="categoryext"
+//                           value={newProduct.categoryext}
+//                           onChange={handleInputChange}
+//                           required
+//                           label="Accessories Type"
+//                         >
+//                           <MenuItem value="">
+//                             <em>None</em>
+//                           </MenuItem>
+//                           <MenuItem value="Belts">Belts</MenuItem>
+//                           <MenuItem value="Beds">Beds</MenuItem>
+//                           <MenuItem value="Shampoos">Shampoos</MenuItem>
+//                           <MenuItem value="Toys">Toys</MenuItem>
+//                           <MenuItem value="Bowls">Bowls</MenuItem>
+//                           <MenuItem value="Clothes">Clothes</MenuItem>
+//                           <MenuItem value="Carriers">Carriers</MenuItem>
+//                           <MenuItem value="Collars">Collars</MenuItem>
+//                           <MenuItem value="Leashes">Leashes</MenuItem>
+//                           <MenuItem value="Grooming">
+//                             Grooming Supplies
+//                           </MenuItem>
+//                           <MenuItem value="Travel">Travel Accessories</MenuItem>
+//                           <MenuItem value="Others">others</MenuItem>
+//                         </Select>
+//                       </FormControl>
+//                     )}
+//                   </div>
+//                 </div>
+//               </div>
 
-            <div style={{ marginLeft: "5%" }}>
-              <h5
-                style={{
-                  marginTop: "20px",
-                  marginBottom: "10px",
-                  color: "grey",
-                }}
-              >
-                Brand*
-              </h5>
+//               <div style={{ marginLeft: "5%" }}>
+//                 <h5
+//                   style={{
+//                     marginTop: "20px",
+//                     marginBottom: "10px",
+//                     color: "grey",
+//                   }}
+//                 >
+//                   Brand*
+//                 </h5>
 
-              <TextField
-                id="outlined-basic"
-                style={{ marginTop: "5px" }}
-                label="Title"
-                variant="outlined"
-                name="brand"
-                value={newProduct.brand}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-          </div>
-        </div>
-      );
-    case 1:
-      return (
-        <div>
-          <div>
-            <label>Price:</label>
-            <input
-              type="number"
-              name="price"
-              value={newProduct.price}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
+//                 <TextField
+//                   id="outlined-basic"
+//                   style={{ marginTop: "5px" }}
+//                   label="Title"
+//                   variant="outlined"
+//                   name="brand"
+//                   value={newProduct.brand}
+//                   onChange={handleInputChange}
+//                   required
+//                 />
+//               </div>
+//             </div>
+//           </div>
+//         );
+//       case 1:
+//         return (
+//           <div>
+//             <div>
+//               <label>Price:</label>
+//               <input
+//                 type="number"
+//                 name="price"
+//                 value={newProduct.price}
+//                 onChange={handleInputChange}
+//                 required
+//               />
+//             </div>
 
-          <div>
-            <label>Description:</label>
-            <textarea
-              name="description"
-              value={newProduct.description}
-              onChange={handleInputChange}
-              required
-            ></textarea>
-          </div>
-          <div>
-            <label>Image:</label>
-            <input
-              type="file"
-              name="image"
-              onChange={handleImageChange}
-              required
-            />
-          </div>
-        </div>
-      );
-    case 2:
-      return <></>;
-    default:
-      return null;
-  }
-};
+//             <div>
+//               <label>Description:</label>
+//               <textarea
+//                 name="description"
+//                 value={newProduct.description}
+//                 onChange={handleInputChange}
+//                 required
+//               ></textarea>
+//             </div>
+//             <div>
+//               <label>Image:</label>
+//               <input
+//                 type="file"
+//                 name="image"
+//                 onChange={handleImageChange}
+//                 required
+//               />
+//             </div>
+//           </div>
+//         );
+//       case 2:
+//         return <></>;
+//       default:
+//         return null;
+//     }
+//   };
 
 //   return (
 //     <div style={{ width: "30rem" }}>
