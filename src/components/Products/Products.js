@@ -313,7 +313,7 @@ function Products() {
     name: "",
     category: "",
     mainproduct: "",
-    categoryext: "",
+    categoryext: "Pets Food",
     brand: "",
     rating: "",
     price: "",
