@@ -39,13 +39,20 @@ export default function DoctorsLogin() {
         </div>
       </navbar>
       <div
-        style={{ height: '100%', display: 'flex' }}
+        style={{ height: '38.67rem', display: 'flex' }}
         className="container-fluid"
       >
         <div style={{ width: '14rem', position: 'sticky', top: 0 }}>
           {<Navigation handleSelection={handleSidebarSelection} />}
         </div>
-        <div style={{ width: '84%', background: '#f9fafe', overflow: 'auto' }}>
+        <div
+          style={{
+            width: '84%',
+            height: 'auto',
+            background: '#f9fafe',
+            overflow: 'auto',
+          }}
+        >
           <div className="content">{renderSelectedComponent()}</div>
         </div>
       </div>
