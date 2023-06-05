@@ -32,7 +32,7 @@ export default function DoctorsLogin() {
     <div>
       <navbar className="nav navbar bg-primary shadow">
         <div>
-          <h3>Welcome Dr.Abdullah</h3>
+          <h3>Welcome Dr. Abdullah</h3>
         </div>
         <div className="p-2">
           <button>Logout</button>
