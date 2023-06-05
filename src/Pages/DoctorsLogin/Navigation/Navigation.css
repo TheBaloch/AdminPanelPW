@@ -1,0 +1,39 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+.container {
+  height: 100%;
+  background-color: #cccccc;
+}
+.sideBar-ul {
+  list-style-type: none;
+  /* padding: 0px; */
+  text-align: center;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin-top: 35px;
+}
+.button_custon {
+  border: 0px;
+  background: transparent;
+  font-weight: 500;
+  color: inherit;
+}
+
+ul li {
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  gap: 5px;
+}
+ul li:hover {
+  color: #ab52e9;
+}
+ul li:hover,
+button.selected {
+  color: #ab52e9;
+}

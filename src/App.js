@@ -1,9 +1,12 @@
-import Home from './Pages/Home/Home';
+import DoctorsLogin from './Pages/DoctorsLogin/DoctorsLogin';
+//import Home from './Pages/Home/Home';
+
 //aghahrere
 function App() {
   return (
     <>
-      <Home />
+      {/* <Home /> */}
+      <DoctorsLogin />
     </>
   );
 }
