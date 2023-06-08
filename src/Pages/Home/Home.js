@@ -65,6 +65,7 @@ import Insurance from "../../components/Insurance/Insurance";
 import Dashboard from "../../components/Dashboard/Dashboard";
 import "./Home.css";
 import Doctors from "../../components/Doctors/Doctors";
+import BuyandSell from "../../components/BuyandSell/BuyandSell";
 
 const MainHome = () => {
   const [selectedComponent, setSelectedComponent] = useState("dashboard");
@@ -91,6 +92,9 @@ const MainHome = () => {
         return <Insurance />;
       case "orders":
         return <Orders />;
+
+      case "buyandsell":
+        return <BuyandSell />;
       default:
         return null;
     }
