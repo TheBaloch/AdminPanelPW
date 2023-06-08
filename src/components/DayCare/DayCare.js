@@ -8,9 +8,23 @@ import axios from 'axios';
 
 export default function DayCare() {
   const [daycareData, setDaycareData] = useState([]);
+  const [triger, setTriger] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/daycare');
+        setDaycareData(response.data);
+      } catch (error) {
+        console.error('Error fetching daycare data:', error);
+      }
+    };
+    fetchData();
+    setTriger(null);
+  }, [triger]);
 
   ///start
-  const [daycare, setDaycare] = useState();
+  const [daycare, setDaycare] = useState(null);
 
   const toEdit = (ID, edit, val) => {
     axios
@@ -18,7 +32,6 @@ export default function DayCare() {
       .then((response) => {
         console.log(response.data);
         response.data[edit] = val;
-        console.log(response.data);
         setDaycare(response.data);
       })
       .catch((error) => {
@@ -33,6 +46,7 @@ export default function DayCare() {
         .then(() => {
           console.log('Daycare updated successfully');
           setDaycare(null);
+          setTriger('true');
         })
         .catch((error) => {
           console.error('Error updating daycare:', error);
@@ -40,19 +54,6 @@ export default function DayCare() {
     }
   }, [daycare]);
   ///end
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/api/daycare');
-        setDaycareData(response.data);
-        console.log(response.data);
-      } catch (error) {
-        console.error('Error fetching daycare data:', error);
-      }
-    };
-    fetchData();
-  }, []);
 
   // console.log(daycareData);
 
