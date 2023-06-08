@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import axios from 'axios';
 
 export default function DayCare() {
   const [daycareData, setDaycareData] = useState([]);
+
+  ///start
   const [daycare, setDaycare] = useState();
 
   const toEdit = (ID, edit, val) => {
@@ -15,30 +17,38 @@ export default function DayCare() {
       .get(`http://localhost:5000/api/daycare/${ID}`)
       .then((response) => {
         console.log(response.data);
+        response.data[edit] = val;
+        console.log(response.data);
         setDaycare(response.data);
-        setDaycare((prevState) => ({
-          ...prevState,
-          [edit]: val,
-        }));
-        if (daycare) {
-          axios
-            .put(`http://localhost:5000/api/daycare/${ID}`, daycare)
-            .then(setDaycare(null));
-        }
       })
       .catch((error) => {
-        console.error("Error retrieving data:", error);
+        console.error('Error retrieving data:', error);
       });
   };
 
   useEffect(() => {
+    if (daycare) {
+      axios
+        .put(`http://localhost:5000/api/daycare/${daycare._id}`, daycare)
+        .then(() => {
+          console.log('Daycare updated successfully');
+          setDaycare(null);
+        })
+        .catch((error) => {
+          console.error('Error updating daycare:', error);
+        });
+    }
+  }, [daycare]);
+  ///end
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/daycare");
+        const response = await axios.get('http://localhost:5000/api/daycare');
         setDaycareData(response.data);
         console.log(response.data);
       } catch (error) {
-        console.error("Error fetching daycare data:", error);
+        console.error('Error fetching daycare data:', error);
       }
     };
     fetchData();
@@ -51,7 +61,7 @@ export default function DayCare() {
       {daycareData.map((entry) => (
         <div
           key={entry._id}
-          style={{ width: "90%", marginTop: "6%", marginLeft: "5%" }}
+          style={{ width: '90%', marginTop: '6%', marginLeft: '5%' }}
         >
           <Accordion disabled={entry.approvedcheck}>
             <AccordionSummary
@@ -62,7 +72,15 @@ export default function DayCare() {
               <Typography>{entry.pickupadress}</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography>{/* ?? add button */}</Typography>
+              <Typography>
+                <button
+                  onClick={() => {
+                    toEdit(entry._id, 'approvedcheck', true);
+                  }}
+                >
+                  TEST
+                </button>
+              </Typography>
             </AccordionDetails>
           </Accordion>
 
