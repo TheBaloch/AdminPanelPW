@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import Box from "@mui/joy/Box";
+import Button from "@mui/joy/Button";
+import Divider from "@mui/joy/Divider";
+import Modal from "@mui/joy/Modal";
+import ModalDialog from "@mui/joy/ModalDialog";
+import DeleteForever from "@mui/icons-material/DeleteForever";
+import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
+import Typography from "@mui/joy/Typography";
+import EditProductModal from "../EditProductModal/EditProductModal";
+import React, { useState } from "react";
+import "./ProductItem.css";
 
 function ProductItem({ product, onDelete, onUpdateProduct }) {
   const imgURL = `http://localhost:5000/${product.image}`;
+
+  const [open, setOpen] = React.useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [editedProduct, setEditedProduct] = useState({
-    name: product.name,
-    price: product.price,
-    description: product.description,
-    image: null,
-  });
 
   const handleEdit = () => {
     setShowModal(true);
@@ -21,130 +25,115 @@ function ProductItem({ product, onDelete, onUpdateProduct }) {
     setShowModal(false);
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setEditedProduct((prevProduct) => ({
-      ...prevProduct,
-      [name]: value,
-    }));
-  };
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setEditedProduct((prevProduct) => ({
-      ...prevProduct,
-      image: file,
-    }));
-  };
-
-  const handleProductEdit = async () => {
-    const formData = new FormData();
-    formData.append('name', editedProduct.name);
-    formData.append('price', editedProduct.price);
-    formData.append('description', editedProduct.description);
-    formData.append('image', editedProduct.image);
-
-    try {
-      const response = await fetch(
-        `http://localhost:5000/api/products/${product._id}`,
-        {
-          method: 'PUT',
-          body: formData,
-        }
-      );
-
-      if (response.ok) {
-        console.log('Product updated successfully');
-        handleClose();
-        onUpdateProduct();
-      } else {
-        console.error('Error updating product:', response.statusText);
-      }
-    } catch (error) {
-      console.error('Error updating product:', error);
-    }
-  };
-
   const handleDelete = () => {
     onDelete(product._id);
   };
 
   return (
-    <div style={{ display: 'inline-flex' }}>
-      <img
-        src={imgURL}
-        alt={product.name}
-        style={{ height: '40px', width: '40px' }}
-      />
-      <p>{product.name}</p>
-      <h6>{product.price}</h6>
-      <button onClick={handleEdit}>Edit</button>
-      <button onClick={handleDelete}>Delete</button>
+    <>
+      <div style={{ display: "inline-flex" }}>
+        <article className="profile-section">
+          <section className="profile-info">
+            <table className="profile-table">
+              <tbody>
+                <tr className="table-row">
+                  <td className="label">
+                    <img
+                      src={imgURL}
+                      alt={product.name}
+                      style={{ height: "70px", width: "70px" }}
+                    />
+                    {product.name}
+                  </td>
+                  <td className="value">{product.categoryext}</td>
 
-      <Modal show={showModal} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Product</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group controlId="formName">
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                type="text"
-                name="name"
-                value={editedProduct.name}
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="formPrice">
-              <Form.Label>Price</Form.Label>
-              <Form.Control
-                type="text"
-                name="price"
-                value={editedProduct.price}
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="formDescription">
-              <Form.Label>Description</Form.Label>
-              <Form.Control
-                as="textarea"
-                name="description"
-                value={editedProduct.description}
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="formImage">
-              <Form.Label>Current Image</Form.Label>
-              <br />
-              <img
-                src={imgURL}
-                alt={product.name}
-                style={{
-                  height: '100px',
-                  width: '100px',
-                  marginBottom: '10px',
+                  <td className="value">
+                    <Button
+                      variant="soft"
+                      endDecorator={<KeyboardArrowRight />}
+                      color="success"
+                      onClick={handleEdit}
+                    >
+                      Edit
+                    </Button>
+                  </td>
+                  <td className="value">
+                    <Button
+                      variant="outlined"
+                      color="danger"
+                      endDecorator={<DeleteForever />}
+                      onClick={() => setOpen(true)}
+                    >
+                      Delete
+                    </Button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </article>
+      </div>
+
+      {showModal && (
+        <EditProductModal
+          product={product}
+          onUpdateProduct={onUpdateProduct}
+          onHide={handleClose}
+        />
+      )}
+
+      <React.Fragment>
+        <Modal open={open} onClose={() => setOpen(false)}>
+          <ModalDialog
+            variant="outlined"
+            role="alertdialog"
+            aria-labelledby="alert-dialog-modal-title"
+            aria-describedby="alert-dialog-modal-description"
+          >
+            <Typography
+              id="alert-dialog-modal-title"
+              component="h2"
+              startDecorator={<WarningRoundedIcon />}
+            >
+              Confirmation
+            </Typography>
+            <Divider />
+            <Typography
+              id="alert-dialog-modal-description"
+              textColor="text.tertiary"
+            >
+              Are you sure you want to Delete Product?
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                gap: 1,
+                justifyContent: "flex-end",
+                pt: 2,
+              }}
+            >
+              <Button
+                variant="plain"
+                color="neutral"
+                onClick={() => setOpen(false)}
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="solid"
+                color="danger"
+                onClick={() => {
+                  handleDelete();
+                  setOpen(false);
                 }}
-              />
-              <Form.Label>Upload New Image</Form.Label>
-              <Form.Control
-                type="file"
-                name="image"
-                onChange={handleImageChange}
-              />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Cancel
-          </Button>
-          <Button variant="primary" onClick={handleProductEdit}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </div>
+              >
+                Delete
+              </Button>
+            </Box>
+          </ModalDialog>
+        </Modal>
+      </React.Fragment>
+    </>
   );
 }
 

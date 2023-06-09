@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import React, { useState } from "react";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 function Doctor({ doctor, onDelete, onUpdateDoctor }) {
   const imgURL = `http://localhost:5000/${doctor.image}`;
@@ -43,33 +43,33 @@ function Doctor({ doctor, onDelete, onUpdateDoctor }) {
 
   const handleDoctorEdit = async () => {
     const formData = new FormData();
-    formData.append('f_name', editedDoctor.f_name);
-    formData.append('l_name', editedDoctor.l_name);
-    formData.append('specialization', editedDoctor.specialization);
-    formData.append('available_days', editedDoctor.available_days);
-    formData.append('phone', editedDoctor.phone);
-    formData.append('email', editedDoctor.email);
-    formData.append('pass', editedDoctor.pass);
-    formData.append('image', editedDoctor.image);
+    formData.append("f_name", editedDoctor.f_name);
+    formData.append("l_name", editedDoctor.l_name);
+    formData.append("specialization", editedDoctor.specialization);
+    formData.append("available_days", editedDoctor.available_days);
+    formData.append("phone", editedDoctor.phone);
+    formData.append("email", editedDoctor.email);
+    formData.append("pass", editedDoctor.pass);
+    formData.append("image", editedDoctor.image);
 
     try {
       const response = await fetch(
         `http://localhost:5000/api/doctors/${doctor._id}`,
         {
-          method: 'PUT',
+          method: "PUT",
           body: formData,
         }
       );
 
       if (response.ok) {
-        console.log('Doctor updated successfully');
+        console.log("Doctor updated successfully");
         handleClose();
         onUpdateDoctor();
       } else {
-        console.error('Error updating doctor:', response.statusText);
+        console.error("Error updating doctor:", response.statusText);
       }
     } catch (error) {
-      console.error('Error updating doctor:', error);
+      console.error("Error updating doctor:", error);
     }
   };
 
@@ -78,11 +78,11 @@ function Doctor({ doctor, onDelete, onUpdateDoctor }) {
   };
 
   return (
-    <div style={{ display: 'inline-flex' }}>
+    <div style={{ display: "inline-flex" }}>
       <img
         src={imgURL}
         alt={`${doctor.f_name} ${doctor.l_name}`}
-        style={{ height: '40px', width: '40px' }}
+        style={{ height: "40px", width: "40px" }}
       />
       <p>{`${doctor.f_name} ${doctor.l_name}`}</p>
       <p>{doctor.phone}</p>
@@ -169,9 +169,9 @@ function Doctor({ doctor, onDelete, onUpdateDoctor }) {
                 src={imgURL}
                 alt={`${doctor.f_name} ${doctor.l_name}`}
                 style={{
-                  height: '100px',
-                  width: '100px',
-                  marginBottom: '10px',
+                  height: "100px",
+                  width: "100px",
+                  marginBottom: "10px",
                 }}
               />
               <Form.Label>Upload New Image</Form.Label>

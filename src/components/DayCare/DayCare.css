@@ -1,0 +1,10 @@
+.no-requests {
+  background-color: #f2f2f2;
+  padding: 30px;
+  text-align: center;
+}
+
+.no-requests p {
+  color: #555;
+  font-size: 28px;
+}
