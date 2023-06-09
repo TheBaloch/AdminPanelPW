@@ -18,7 +18,7 @@ import TableHead from "@mui/material/TableHead";
 export default function DayCare() {
   const [daycareData, setDaycareData] = useState([]);
   const [petinfo, setPetinfo] = useState([]);
-
+  const [triger, setTriger] = useState(null);
   const [daycare, setDaycare] = useState();
 
   const toEdit = (ID, edit, val) => {
@@ -37,6 +37,8 @@ export default function DayCare() {
             .then(() => {
               console.log("Daycare updated successfully");
               setDaycare(null);
+              setTriger("true");
+              console.log(triger);
             })
             .catch((error) => {
               console.error("Error updating daycare:", error);
@@ -62,6 +64,7 @@ export default function DayCare() {
         .then(() => {
           console.log("Daycare updated successfully");
           setDaycare(null);
+          setTriger("true");
         })
         .catch((error) => {
           console.error("Error updating daycare:", error);
@@ -127,7 +130,11 @@ export default function DayCare() {
     };
 
     fetchData();
-  }, []);
+    if (triger) {
+      setTriger(null);
+      //close function here
+    }
+  }, [triger]);
 
   const filteredData = daycareData.filter((entry) => !entry.requestrejected);
   return (
