@@ -34,6 +34,8 @@ export default function DayCare() {
 
   const [filterOption, setFilterOption] = useState("all");
 
+  const [users, setUsers] = useState([]);
+
   const filteredData = daycareData.filter((entry) => {
     if (filterOption === "all") {
       return !entry.delivered;
@@ -77,6 +79,7 @@ export default function DayCare() {
               setDaycare(null);
               setTriger("true");
               console.log(triger);
+              window.location.reload();
             })
             .catch((error) => {
               console.error("Error updating daycare:", error);
@@ -103,6 +106,7 @@ export default function DayCare() {
           toast.success("Sucessfully updated");
           setDaycare(null);
           setTriger("true");
+          window.location.reload();
         })
         .catch((error) => {
           console.error("Error updating daycare:", error);
@@ -114,6 +118,7 @@ export default function DayCare() {
           response.data[edit] = val;
           toast.success("Sucessfully updated");
           setDaycare(response.data);
+          window.location.reload();
         })
         .catch((error) => {
           console.error("Error retrieving data:", error);
@@ -135,18 +140,32 @@ export default function DayCare() {
     }
   }, [daycare]);
 
+  // useEffect(() => {
+  //   axios
+  //     .get('http://localhost:5000/api/users')
+  //     .then((response) => {
+  //       setUsers(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error fetching users:', error);
+  //     });
+  // }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const daycareResponse = axios.get("http://localhost:5000/api/daycare");
         const petInfoResponse = axios.get("http://localhost:5000/api/pets/");
-        const [daycareRes, petInfoRes] = await Promise.all([
+        const userInfoResponse = axios.get("http://localhost:5000/api/users");
+        const [daycareRes, petInfoRes, userInfoRes] = await Promise.all([
           daycareResponse,
           petInfoResponse,
+          userInfoResponse,
         ]);
 
         setDaycareData(daycareRes.data);
         setPetinfo(petInfoRes.data);
+        setUsers(userInfoRes.data);
       } catch (error) {
         console.error("Error fetching daycare data:", error);
       }
@@ -183,7 +202,9 @@ export default function DayCare() {
       ) : (
         filteredData.map((entry) => {
           const pet = petinfo.find((pet) => pet._id === entry.petid);
+          const userData = users.find((pet) => pet._id === entry.userid);
 
+          // users
           return (
             <div
               key={entry._id}
@@ -273,7 +294,6 @@ export default function DayCare() {
                   </Table>
                 </TableContainer>
               </Accordion>
-
               <Accordion
                 disabled={entry.pickedupstatus || !entry.approvedcheck}
               >
@@ -294,6 +314,7 @@ export default function DayCare() {
                             <TableCell align="right">Pickup Time</TableCell>
                             <TableCell align="right">Pickup date</TableCell>
                             <TableCell align="right">Days Requested </TableCell>
+                            <TableCell align="right">PhoneNo </TableCell>
                             <TableCell align="right">pickedup status</TableCell>
                           </TableRow>
                         </TableHead>
@@ -351,9 +372,13 @@ export default function DayCare() {
                             </TableCell>
 
                             <TableCell align="right">
+                              <Typography>{userData.phone}</Typography>
+                            </TableCell>
+
+                            <TableCell align="right">
                               <Typography>
                                 <Chip
-                                  label="Approve"
+                                  label="PickedUp"
                                   variant="outlined"
                                   onClick={() => {
                                     toEdit(entry._id, "pickedupstatus", true);
@@ -369,7 +394,6 @@ export default function DayCare() {
                   </Typography>
                 </AccordionDetails>
               </Accordion>
-
               <Accordion
                 disabled={entry.dropoffstatus || !entry.pickedupstatus}
               >
@@ -424,7 +448,6 @@ export default function DayCare() {
                   </Typography>
                 </AccordionDetails>
               </Accordion>
-
               <Accordion disabled={entry.delivered || !entry.dropoffstatus}>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
@@ -445,6 +468,7 @@ export default function DayCare() {
                             <TableCell align="left">Dropoff time</TableCell>
                             <TableCell align="right">Days serviced </TableCell>
                             <TableCell align="right">Payment amount </TableCell>
+                            <TableCell align="right">PhoneNo </TableCell>
                             <TableCell align="right">Status </TableCell>
                           </TableRow>
                         </TableHead>
@@ -503,6 +527,9 @@ export default function DayCare() {
                             </TableCell>
                             <TableCell align="right">
                               <Typography>{entry.bill}.Rs</Typography>
+                            </TableCell>
+                            <TableCell align="right">
+                              <Typography>{userData.phone}</Typography>
                             </TableCell>
 
                             <TableCell align="right">
