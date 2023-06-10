@@ -6,9 +6,15 @@ import Profile from './Page/Profile/Profile';
 import axios from 'axios';
 
 export default function DoctorsLogin() {
-  const [doctor, setDoctor] = useState(
-    JSON.parse(localStorage.getItem('doctor'))
-  );
+  const [doctor, setDoctor] = useState(() => {
+    try {
+      const storedDoctor = localStorage.getItem('doctor');
+      return storedDoctor ? JSON.parse(storedDoctor) : null;
+    } catch (error) {
+      console.error('Error parsing stored doctor:', error);
+      return null;
+    }
+  });
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const handleEmailChange = (e) => {
@@ -17,6 +23,11 @@ export default function DoctorsLogin() {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
+
+  const handleUpdate = () => {
+    setDoctor(JSON.parse(localStorage.getItem('doctor')));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -51,7 +62,7 @@ export default function DoctorsLogin() {
       case 'Appointments':
         return <div>Appointments</div>;
       case 'profile':
-        return <Profile />;
+        return <Profile handleUpdate={handleUpdate} />;
       case 'history':
         return <div>history</div>;
       case 'temp':
@@ -84,14 +95,14 @@ export default function DoctorsLogin() {
 
   return (
     <div>
-      <navbar className="nav navbar bg-primary shadow">
+      <div className="nav navbar bg-primary shadow">
         <div>
           <h3>Welcome Dr. {doctor.f_name}</h3>
         </div>
         <div className="p-2">
           <button onClick={handleLogout}>Logout</button>
         </div>
-      </navbar>
+      </div>
       <div
         style={{ height: '38.67rem', display: 'flex' }}
         className="container-fluid"
