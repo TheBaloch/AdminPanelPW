@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import './DoctorsLogin.css';
 import Navigation from './Navigation/Navigation';
+import Profile from './Page/Profile/Profile';
 
 export default function DoctorsLogin() {
   const [selectedComponent, setSelectedComponent] = useState('dashboard');
@@ -18,7 +19,7 @@ export default function DoctorsLogin() {
       case 'Appointments':
         return <div>Appointments</div>;
       case 'profile':
-        return <div>Profile</div>;
+        return <Profile />;
       case 'history':
         return <div>history</div>;
       case 'temp':
