@@ -112,19 +112,46 @@ export default function DayCare() {
           console.error("Error updating daycare:", error);
         });
     } else {
+      console.log(ID, edit, val);
       axios
         .get(`http://localhost:5000/api/daycare/${ID}`)
         .then((response) => {
-          response.data[edit] = val;
-          toast.success("Sucessfully updated");
-          setDaycare(response.data);
-          window.location.reload();
+          const updatedData = {
+            ...response.data,
+            [edit]: val,
+          };
+          axios
+            .put(`http://localhost:5000/api/daycare/${ID}`, updatedData)
+            .then(() => {
+              toast.success("Sucessfully updated");
+              console.log("here");
+              setDaycare(null);
+              window.location.reload();
+            })
+            .catch((error) => {
+              console.error("Error updating daycare:", error);
+            });
         })
         .catch((error) => {
           console.error("Error retrieving data:", error);
         });
     }
   };
+
+  // else {
+  //   console.log(ID, edit, val);
+  //   axios
+  //     .get(`http://localhost:5000/api/daycare/${ID}`)
+  //     .then((response) => {
+  //       response.data[edit] = val;
+  //       toast.success("Sucessfully updated");
+  //       setDaycare(response.data);
+  //       window.location.reload();
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error retrieving data:", error);
+  //     });
+  // }
 
   useEffect(() => {
     if (daycare) {
