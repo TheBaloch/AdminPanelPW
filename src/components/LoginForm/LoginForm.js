@@ -78,7 +78,7 @@ const LoginForm = ({ handleUpdate }) => {
             </div>
             <div className="button-container">
               <button type="submit" className="btn btn-primary">
-                Submit
+                Sign-In
               </button>
             </div>
           </form>
