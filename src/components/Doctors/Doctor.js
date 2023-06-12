@@ -85,10 +85,10 @@ function Doctor({ doctor, onDelete, onUpdateDoctor }) {
         alt={`${doctor.f_name} ${doctor.l_name}`}
         style={{ height: '60px', width: '60px', marginLeft: '5px' }}
       />
-      <p className="para">{doctor.f_name}</p>
+      <p className="fname">{doctor.f_name}</p>
       <p className="para">{doctor.l_name}</p>
-      <p className="para">{doctor.phone}</p>
-      <p className="para">{doctor.email}</p>
+      <p className="phn">{doctor.phone}</p>
+      <p className="eml">{doctor.email}</p>
       <button onClick={handleEdit} className="btn btn-primary btnc">
         Edit
       </button>
