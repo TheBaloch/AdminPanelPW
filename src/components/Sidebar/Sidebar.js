@@ -1,11 +1,11 @@
 // import React from "react";
-import React, { useState } from "react";
-import "./Sidebar.css";
+import React, { useState } from 'react';
+import './Sidebar.css';
 
 // import { AiFillMedicineBox } from "react-icons/ai";
 
-const Sidebar = ({ handleSelection }) => {
-  const [selectedButton, setSelectedButton] = useState("");
+const Sidebar = ({ handleSelection, handleLogout }) => {
+  const [selectedButton, setSelectedButton] = useState('');
 
   const handleButtonClick = (buttonName) => {
     setSelectedButton(buttonName);
@@ -15,9 +15,9 @@ const Sidebar = ({ handleSelection }) => {
   return (
     <div className="sidebar">
       <img
-        style={{ height: "100%", width: "100%" }}
+        style={{ height: '100%', width: '100%' }}
         alt=""
-        src={"./logo.png"}
+        src={'./logo.png'}
       ></img>
 
       <ul className="sideBar-ul">
@@ -33,9 +33,9 @@ const Sidebar = ({ handleSelection }) => {
 
           <button
             className={`button_custon ${
-              selectedButton === "dashboard" ? "selected" : ""
+              selectedButton === 'dashboard' ? 'selected' : ''
             }`}
-            onClick={() => handleButtonClick("dashboard")}
+            onClick={() => handleButtonClick('dashboard')}
           >
             Dashboard
           </button>
@@ -57,9 +57,9 @@ const Sidebar = ({ handleSelection }) => {
           </svg>
           <button
             className={`button_custon ${
-              selectedButton === "products" ? "selected" : ""
+              selectedButton === 'products' ? 'selected' : ''
             }`}
-            onClick={() => handleButtonClick("products")}
+            onClick={() => handleButtonClick('products')}
           >
             Products
           </button>
@@ -87,9 +87,9 @@ const Sidebar = ({ handleSelection }) => {
           </svg>
           <button
             className={`button_custon ${
-              selectedButton === "users" ? "selected" : ""
+              selectedButton === 'users' ? 'selected' : ''
             }`}
-            onClick={() => handleButtonClick("users")}
+            onClick={() => handleButtonClick('users')}
           >
             users
           </button>
@@ -105,9 +105,9 @@ const Sidebar = ({ handleSelection }) => {
           </svg>
           <button
             className={`button_custon ${
-              selectedButton === "doctors" ? "selected" : ""
+              selectedButton === 'doctors' ? 'selected' : ''
             }`}
-            onClick={() => handleButtonClick("doctors")}
+            onClick={() => handleButtonClick('doctors')}
           >
             Doctors
           </button>
@@ -128,9 +128,9 @@ const Sidebar = ({ handleSelection }) => {
           </svg>
           <button
             className={`button_custon ${
-              selectedButton === "buyandsell" ? "selected" : ""
+              selectedButton === 'buyandsell' ? 'selected' : ''
             }`}
-            onClick={() => handleButtonClick("buyandsell")}
+            onClick={() => handleButtonClick('buyandsell')}
           >
             Buy and sell
           </button>
@@ -151,9 +151,9 @@ const Sidebar = ({ handleSelection }) => {
           </svg>
           <button
             className={`button_custon ${
-              selectedButton === "daycare" ? "selected" : ""
+              selectedButton === 'daycare' ? 'selected' : ''
             }`}
-            onClick={() => handleButtonClick("daycare")}
+            onClick={() => handleButtonClick('daycare')}
           >
             Day Care
           </button>
@@ -172,9 +172,9 @@ const Sidebar = ({ handleSelection }) => {
 
           <button
             className={`button_custon ${
-              selectedButton === "insurance" ? "selected" : ""
+              selectedButton === 'insurance' ? 'selected' : ''
             }`}
-            onClick={() => handleButtonClick("insurance")}
+            onClick={() => handleButtonClick('insurance')}
           >
             Insurance
           </button>
@@ -192,14 +192,17 @@ const Sidebar = ({ handleSelection }) => {
           </svg>
           <button
             className={`button_custon ${
-              selectedButton === "orders" ? "selected" : ""
+              selectedButton === 'orders' ? 'selected' : ''
             }`}
-            onClick={() => handleButtonClick("orders")}
+            onClick={() => handleButtonClick('orders')}
           >
             Orders
           </button>
         </li>
       </ul>
+      <button className="btn btn-secondary m-4 mt-5" onClick={handleLogout}>
+        Logout
+      </button>
     </div>
   );
 };
