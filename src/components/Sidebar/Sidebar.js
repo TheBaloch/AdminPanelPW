@@ -15,9 +15,9 @@ const Sidebar = ({ handleSelection, handleLogout }) => {
   return (
     <div className="sidebar">
       <img
-        style={{ height: '100%', width: '100%' }}
+        style={{ height: '80px', width: '280px' }}
         alt=""
-        src={'./logo.png'}
+        src={'./img/logo.png'}
       ></img>
 
       <ul className="sideBar-ul">

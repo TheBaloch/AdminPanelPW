@@ -1,0 +1,84 @@
+/* Login.css */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+.input-container {
+  position: relative;
+}
+
+input[type='email'],
+input[type='password'] {
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  font-family: 'Montserrat', sans-serif;
+  padding: 10px;
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+input[type='email']:focus,
+input[type='password']:focus {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.btn-primary {
+  background: linear-gradient(to bottom, #0d0255ac, #3d29bba2);
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  padding: 10px 20px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(to bottom, #3d29bba2, #0d0255ac);
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.card {
+  width: 500px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: white;
+}
+
+.card-header {
+  background: linear-gradient(to bottom, #0d0255ac, #3d29bba2);
+  color: white;
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px 10px 0 0;
+  margin-bottom: 20px;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image:url('background.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+
+.logo {
+  height: 80px;
+  width: 280px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
