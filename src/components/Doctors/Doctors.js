@@ -11,8 +11,7 @@ function Doctors() {
   const [newDoctor, setNewDoctor] = useState({
     f_name: '',
     l_name: '',
-    specialization:'',
-    available_days:'',
+    field:'',
     phone: '',
     email: '',
     pass: '',
@@ -41,8 +40,7 @@ function Doctors() {
     setNewDoctor({
       f_name: '',
       l_name: '',
-      specialization:'',
-      available_days:'',
+      field:'',
       phone: '',
       email: '',
       pass: '',
@@ -74,8 +72,7 @@ function Doctors() {
       formData.append('f_name', newDoctor.f_name);
       formData.append('l_name', newDoctor.l_name);
       formData.append('phone', newDoctor.phone);
-      formData.append('specialization', newDoctor.specialization);
-      formData.append('available_days', newDoctor.available_days);
+      formData.append('field', newDoctor.field);
       formData.append('email', newDoctor.email);
       formData.append('pass', newDoctor.pass);
       formData.append('image', newDoctor.image);
@@ -148,24 +145,16 @@ function Doctors() {
                 onChange={handleInputChange}
               />
             </Form.Group>
-            <Form.Group controlId="formSpecialization">
-              <Form.Label>Specialization</Form.Label>
+            <Form.Group controlId="formfield">
+              <Form.Label>Field</Form.Label>
               <Form.Control
                 type="text"
-                name="specialization"
-                value={newDoctor.specialization}
+                name="field"
+                value={newDoctor.field}
                 onChange={handleInputChange}
               />
             </Form.Group>
-            <Form.Group controlId="formAvailableDays">
-              <Form.Label>Available Days</Form.Label>
-              <Form.Control
-                type="text"
-                name="available_days"
-                value={newDoctor.available_days}
-                onChange={handleInputChange}
-              />
-            </Form.Group>
+
             <Form.Group controlId="formPhone">
               <Form.Label>Phone</Form.Label>
               <Form.Control
