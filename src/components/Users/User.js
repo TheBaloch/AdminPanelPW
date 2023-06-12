@@ -4,11 +4,15 @@ export default function User(user) {
   console.log(user);
   const u = user.user;
   return (
-    <div>
-      <p>First Name: {u.f_name}</p>
-      <p>Last Name: {u.l_name}</p>
-      <p>Email: {u.email}</p>
-      <p>Phone: {u.phone}</p>
+    <div className="container">
+      <div className="card">
+        <div className="card-body">
+          <p className="card-text">First Name: {u.f_name}</p>
+          <p className="card-text">Last Name: {u.l_name}</p>
+          <p className="card-text">Email: {u.email}</p>
+          <p className="card-text">Phone: {u.phone}</p>
+        </div>
+      </div>
     </div>
   );
 }

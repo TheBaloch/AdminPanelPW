@@ -2,6 +2,27 @@
     padding-left: 8px;
     padding-right: 8px;
     margin-top: 10px;
+    width: 140px;
+}
+
+.fname{
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-top: 10px;
+}
+
+.phn{
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-top: 10px;
+    width: 150px;
+}
+
+.eml{
+    /* padding-left: 8px; */
+    /* padding-right: 8px; */
+    margin-top: 10px;
+    width: 200px;
 }
 
 .btnc{
@@ -13,7 +34,7 @@
 
 .mdiv {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     margin: 10px;
     padding: 20px;

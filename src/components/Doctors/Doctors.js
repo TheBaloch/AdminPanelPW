@@ -11,7 +11,8 @@ function Doctors() {
   const [newDoctor, setNewDoctor] = useState({
     f_name: '',
     l_name: '',
-    field:'',
+    specialization:'',
+    available_days:'',
     phone: '',
     email: '',
     pass: '',
@@ -40,7 +41,8 @@ function Doctors() {
     setNewDoctor({
       f_name: '',
       l_name: '',
-      field:'',
+      specialization:'',
+      available_days:'',
       phone: '',
       email: '',
       pass: '',
@@ -110,8 +112,12 @@ function Doctors() {
 
   return (
     <div style={{ width: '30rem' }}>
-      <button onClick={handleAdd}>Add New</button>
-      <h3>All Doctors</h3>
+      <h3 className="m-3 mx-4">
+        All Doctors{' '}
+        <button onClick={handleAdd} className="btn btn-primary mx-5">
+          Add New
+        </button>
+      </h3>
       {doctors.map((doctor) => (
         <Doctor
           key={doctor._id}
