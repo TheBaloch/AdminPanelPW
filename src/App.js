@@ -1,4 +1,4 @@
-// import DoctorsLogin from './Pages/DoctorsLogin/DoctorsLogin';
+// import DoctorsLogin from "./Pages/DoctorsLogin/DoctorsLogin";
 import Home from "./Pages/Home/Home";
 
 //aghahrere
