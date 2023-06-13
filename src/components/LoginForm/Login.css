@@ -47,7 +47,6 @@ input[type='password']:focus {
   padding: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  background-color: white;
 }
 
 .card-header {

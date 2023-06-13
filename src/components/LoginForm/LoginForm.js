@@ -47,7 +47,10 @@ const LoginForm = ({ handleUpdate }) => {
 
   return (
     <div className="login-container">
-      <div className="card">
+      <div
+        className="card"
+        style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}
+      >
         <div className="card-header">
           <div className="logo-container">
             <img className="logo" src="./img/logo.png" alt="Logo" />
