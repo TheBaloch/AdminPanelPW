@@ -1,94 +1,120 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import StepContent from "@mui/material/StepContent";
-import Button from "@mui/material/Button";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import ListItemText from "@mui/material/ListItemText";
+import Select from "@mui/material/Select";
+import Checkbox from "@mui/material/Checkbox";
 
-const steps = [
-  "Select campaign settings",
-  "Create an ad group",
-  "Create an ad",
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
+const days = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
 ];
 
-export default function Orders() {
-  const [activeStep, setActiveStep] = React.useState(0);
+const times = [
+  "8am-9am",
+  "9am-10am",
+  "10am-11am",
+  "11am-12pm",
+  "12pm-1pm",
+  "1pm-2pm",
+  "2pm-3pm",
+  "3pm-4pm",
+  "4pm-5pm",
+  "5pm-6pm",
+  "6pm-7pm",
+  "7pm-8pm",
+  "8pm-9pm",
+];
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+const DateSelector = () => {
+  const [selectedDays, setSelectedDays] = React.useState([]);
+  const [selectedTimes, setSelectedTimes] = React.useState([]);
+
+  const handleDayChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setSelectedDays(value);
   };
 
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  const handleTimeChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setSelectedTimes(value);
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
-  };
+  React.useEffect(() => {
+    console.log("Selected Days:", selectedDays);
+    console.log("Selected Times:", selectedTimes);
+  }, [selectedDays, selectedTimes]);
 
   return (
-    <Box sx={{ maxWidth: 400 }}>
-      <Stepper activeStep={activeStep} orientation="vertical">
-        {steps.map((step, index) => (
-          <Step key={index}>
-            <StepLabel>{step}</StepLabel>
-            <StepContent>
-              <Box sx={{ mb: 2 }}>
-                {index === 0 && (
-                  // <button>
-                  //   label={`Step ${index + 1} Input`}
-                  //   // Add your input logic for the first step
-                  // </button>
-                  <div>h1</div>
-                )}
-                {index === 1 && (
-                  // <button>
-                  //   label={`Step ${index + 1} Input`}
-                  //   // Add your dropdown logic for the second step
-                  // </button>
-                  <div>h2</div>
-                )}
-                {index === 2 && (
-                  <Button
-                    variant="contained"
-                    onClick={handleNext}
-                    sx={{ mt: 1, mr: 1 }}
-                  >
-                    Click Me
-                  </Button>
-                )}
-              </Box>
-              <div>
-                <Button
-                  variant="contained"
-                  onClick={handleNext}
-                  sx={{ mt: 1, mr: 1 }}
-                >
-                  {index === steps.length - 1 ? "Finish" : "Continue"}
-                </Button>
-                <Button
-                  disabled={index === 0}
-                  onClick={handleBack}
-                  sx={{ mt: 1, mr: 1 }}
-                >
-                  Back
-                </Button>
-              </div>
-            </StepContent>
-          </Step>
-        ))}
-      </Stepper>
-      {activeStep === steps.length && (
-        <Paper square elevation={0} sx={{ p: 3 }}>
-          <Typography>All steps completed - you&apos;re finished</Typography>
-          <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
-            Reset
-          </Button>
-        </Paper>
-      )}
-    </Box>
+    <div>
+      <FormControl sx={{ m: 1, width: 300 }}>
+        <InputLabel id="demo-multiple-checkbox-day-label">
+          Select Days
+        </InputLabel>
+        <Select
+          labelId="demo-multiple-checkbox-day-label"
+          id="demo-multiple-checkbox-day"
+          multiple
+          value={selectedDays}
+          onChange={handleDayChange}
+          input={<OutlinedInput label="Select Days" />}
+          renderValue={(selected) => selected.join(", ")}
+          MenuProps={MenuProps}
+        >
+          {days.map((day) => (
+            <MenuItem key={day} value={day}>
+              <Checkbox checked={selectedDays.indexOf(day) > -1} />
+              <ListItemText primary={day} />
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+
+      <FormControl sx={{ m: 1, width: 300 }}>
+        <InputLabel id="demo-multiple-checkbox-time-label">
+          Select Times
+        </InputLabel>
+        <Select
+          labelId="demo-multiple-checkbox-time-label"
+          id="demo-multiple-checkbox-time"
+          multiple
+          value={selectedTimes}
+          onChange={handleTimeChange}
+          input={<OutlinedInput label="Select Times" />}
+          renderValue={(selected) => selected.join(", ")}
+          MenuProps={MenuProps}
+        >
+          {times.map((time) => (
+            <MenuItem key={time} value={time}>
+              <Checkbox checked={selectedTimes.indexOf(time) > -1} />
+              <ListItemText primary={time} />
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    </div>
   );
-}
+};
+
+export default DateSelector;
