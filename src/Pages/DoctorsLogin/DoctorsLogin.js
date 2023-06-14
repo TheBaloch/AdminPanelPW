@@ -3,6 +3,7 @@ import { useState } from 'react';
 import './DoctorsLogin.css';
 import Navigation from './Navigation/Navigation';
 import Profile from './Page/Profile/Profile';
+import Appointments from './Page/Appointments/Appointments';
 
 export default function DoctorsLogin({ handleLogout }) {
   const [doctor, setDoctor] = useState(() => {
@@ -30,7 +31,11 @@ export default function DoctorsLogin({ handleLogout }) {
       case 'Home':
         return <div>Home</div>;
       case 'Appointments':
-        return <div>Appointments</div>;
+        return (
+          <div>
+            <Appointments />
+          </div>
+        );
       case 'profile':
         return <Profile handleUpdate={handleUpdate} />;
       case 'history':
