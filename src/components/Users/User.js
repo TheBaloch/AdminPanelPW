@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default function User(user) {
-  console.log(user);
   const u = user.user;
   return (
     <div className="card">
