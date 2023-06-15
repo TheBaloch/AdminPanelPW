@@ -379,13 +379,9 @@ function Doctor({ doctor, onDelete, onUpdateDoctor }) {
   const [editedDoctor, setEditedDoctor] = useState({
     f_name: doctor.f_name,
     l_name: doctor.l_name,
-<<<<<<< HEAD
-    field: doctor.field,
-=======
     specialization: doctor.specialization,
     available_days: doctor.available_days,
     available_time: doctor.available_time,
->>>>>>> eb39fa308274d7b662f9c5e630d65daece630df9
     phone: doctor.phone,
     email: doctor.email,
     pass: doctor.pass,
@@ -418,18 +414,11 @@ function Doctor({ doctor, onDelete, onUpdateDoctor }) {
 
   const handleDoctorEdit = async () => {
     const formData = new FormData();
-<<<<<<< HEAD
-
-    formData.append("f_name", editedDoctor.f_name);
-    formData.append("l_name", editedDoctor.l_name);
-    formData.append("field", editedDoctor.field);
-=======
     formData.append("f_name", editedDoctor.f_name);
     formData.append("l_name", editedDoctor.l_name);
     formData.append("specialization", editedDoctor.specialization);
     formData.append("available_days", editedDoctor.available_days);
     formData.append("available_time", editedDoctor.available_time);
->>>>>>> eb39fa308274d7b662f9c5e630d65daece630df9
     formData.append("phone", editedDoctor.phone);
     formData.append("email", editedDoctor.email);
     formData.append("pass", editedDoctor.pass);
@@ -524,17 +513,10 @@ function Doctor({ doctor, onDelete, onUpdateDoctor }) {
               />
             </Form.Group>
 
-            <Form.Group controlId="formfield">
-              <Form.Label>Field</Form.Label>
+            <Form.Group controlId="formspecialization">
+              <Form.Label>Specialization</Form.Label>
               <Form.Control
                 type="text"
-<<<<<<< HEAD
-                name="field"
-                value={editedDoctor.field}
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-=======
                 name="specialization"
                 value={editedDoctor.specialization}
                 onChange={handleInputChange}
@@ -588,7 +570,6 @@ function Doctor({ doctor, onDelete, onUpdateDoctor }) {
                 </Select>
               </FormControl>
             </div>
->>>>>>> eb39fa308274d7b662f9c5e630d65daece630df9
 
             <Form.Group controlId="formPhone">
               <Form.Label>Phone</Form.Label>

@@ -272,13 +272,15 @@ function Doctors() {
   const [doctors, setDoctors] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [newDoctor, setNewDoctor] = useState({
-    f_name: '',
-    l_name: '',
-    specialization: '',
-    available_days: '',
-    phone: '',
-    email: '',
-    pass: '',
+    f_name: "",
+    l_name: "",
+    specialization: "",
+    available_days: "",
+    phone: "",
+    email: "",
+    pass: "",
+    selectedDays: "",
+    selectedTimes: "",
     image: null,
   });
 
@@ -327,13 +329,15 @@ function Doctors() {
   const handleClose = () => {
     setShowModal(false);
     setNewDoctor({
-      f_name: '',
-      l_name: '',
-      specialization: '',
-      available_days: '',
-      phone: '',
-      email: '',
-      pass: '',
+      f_name: "",
+      l_name: "",
+      specialization: "",
+      available_days: "",
+      phone: "",
+      email: "",
+      pass: "",
+      selectedDays: "",
+      selectedTimes: "",
       image: null,
     });
   };
@@ -359,14 +363,15 @@ function Doctors() {
 
     try {
       const formData = new FormData();
-      formData.append('f_name', newDoctor.f_name);
-      formData.append('l_name', newDoctor.l_name);
-      formData.append('phone', newDoctor.phone);
-      formData.append('specialization', newDoctor.specialization);
-      formData.append('available_days', newDoctor.available_days);
-      formData.append('email', newDoctor.email);
-      formData.append('pass', newDoctor.pass);
-      formData.append('image', newDoctor.image);
+      formData.append("f_name", newDoctor.f_name);
+      formData.append("l_name", newDoctor.l_name);
+      formData.append("phone", newDoctor.phone);
+      formData.append("specialization", newDoctor.specialization);
+      formData.append("available_days", selectedDays);
+      formData.append("available_time", selectedTimes);
+      formData.append("email", newDoctor.email);
+      formData.append("pass", newDoctor.pass);
+      formData.append("image", newDoctor.image);
 
       await axios.post("http://localhost:5000/api/doctors", formData, {
         headers: {
@@ -440,16 +445,16 @@ function Doctors() {
                 onChange={handleInputChange}
               />
             </Form.Group>
-            <Form.Group controlId="formfield">
-              <Form.Label>Field</Form.Label>
+            <Form.Group controlId="formSpecialization">
+              <Form.Label>Specialization</Form.Label>
               <Form.Control
                 type="text"
-                name="field"
-                value={newDoctor.field}
+                name="specialization"
+                value={newDoctor.specialization}
                 onChange={handleInputChange}
               />
             </Form.Group>
-            <Form.Group controlId="formAvailableDays">
+            {/* <Form.Group controlId="formAvailableDays">
               <Form.Label>Available Days</Form.Label>
               <Form.Control
                 type="text"
@@ -457,7 +462,58 @@ function Doctors() {
                 value={newDoctor.available_days}
                 onChange={handleInputChange}
               />
-            </Form.Group>
+            </Form.Group> */}
+            {/* ??????????????????????????????????????????????????????????????????????????????????????????????/ */}
+            <div>
+              <FormControl sx={{ m: 1, width: 300 }}>
+                <InputLabel id="demo-multiple-checkbox-day-label">
+                  Select Days
+                </InputLabel>
+                <Select
+                  labelId="demo-multiple-checkbox-day-label"
+                  id="demo-multiple-checkbox-day"
+                  multiple
+                  value={selectedDays}
+                  onChange={handleDayChange}
+                  input={<OutlinedInput label="Select Days" />}
+                  renderValue={(selected) => selected.join(", ")}
+                  MenuProps={MenuProps}
+                >
+                  {days.map((day) => (
+                    <MenuItem key={day} value={day}>
+                      <Checkbox checked={selectedDays.indexOf(day) > -1} />
+                      <ListItemText primary={day} />
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+
+              <FormControl sx={{ m: 1, width: 300 }}>
+                <InputLabel id="demo-multiple-checkbox-time-label">
+                  Select Times
+                </InputLabel>
+                <Select
+                  labelId="demo-multiple-checkbox-time-label"
+                  id="demo-multiple-checkbox-time"
+                  multiple
+                  value={selectedTimes}
+                  onChange={handleTimeChange}
+                  input={<OutlinedInput label="Select Times" />}
+                  renderValue={(selected) => selected.join(", ")}
+                  MenuProps={MenuProps}
+                >
+                  {times.map((time) => (
+                    <MenuItem key={time} value={time}>
+                      <Checkbox checked={selectedTimes.indexOf(time) > -1} />
+                      <ListItemText primary={time} />
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </div>
+
+            {/* ??????????????????????????????????????????????????????????????????????????????????????????????/ */}
+
             <Form.Group controlId="formPhone">
               <Form.Label>Phone</Form.Label>
               <Form.Control
