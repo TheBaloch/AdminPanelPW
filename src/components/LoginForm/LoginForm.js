@@ -93,57 +93,57 @@
 
 // export default LoginForm;
 
-import React, { useState } from "react";
-import axios from "axios";
-import "./Login.css";
-import Box from "@mui/joy/Box";
-import Button from "@mui/joy/Button";
-import Divider from "@mui/joy/Divider";
-import Modal from "@mui/joy/Modal";
-import ModalDialog from "@mui/joy/ModalDialog";
-import DeleteForever from "@mui/icons-material/DeleteForever";
-import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
-import Typography from "@mui/joy/Typography";
+import React, { useState } from 'react';
+import axios from 'axios';
+import './Login.css';
+import Box from '@mui/joy/Box';
+import Button from '@mui/joy/Button';
+import Divider from '@mui/joy/Divider';
+import Modal from '@mui/joy/Modal';
+import ModalDialog from '@mui/joy/ModalDialog';
+//import DeleteForever from '@mui/icons-material/DeleteForever';
+//import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
+import Typography from '@mui/joy/Typography';
 
 const LoginForm = ({ handleUpdate }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [open, setOpen] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  //const [open, setOpen] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email !== "" && password !== "") {
-      if (email === "admin@petsworld.com") {
+    if (email !== '' && password !== '') {
+      if (email === 'admin@petsworld.com') {
         try {
           const response = await axios.post(
-            "http://localhost:5000/admin/verify",
+            'http://localhost:5000/admin/verify',
             {
               email,
               pass: password,
             }
           );
-          localStorage.setItem("admin", JSON.stringify(response.data));
-          setEmail("");
-          setPassword("");
+          localStorage.setItem('admin', JSON.stringify(response.data));
+          setEmail('');
+          setPassword('');
           handleUpdate();
         } catch (error) {
-          console.error("Error during doctor login:", error);
+          console.error('Error during doctor login:', error);
         }
       } else {
         try {
           const response = await axios.post(
-            "http://localhost:5000/api/doctors/login",
+            'http://localhost:5000/api/doctors/login',
             {
               email,
               pass: password,
             }
           );
-          localStorage.setItem("doctor", JSON.stringify(response.data));
-          setEmail("");
-          setPassword("");
+          localStorage.setItem('doctor', JSON.stringify(response.data));
+          setEmail('');
+          setPassword('');
           handleUpdate();
         } catch (error) {
-          console.error("Error during doctor login:", error);
+          console.error('Error during doctor login:', error);
         }
       }
     }
@@ -166,15 +166,15 @@ const LoginForm = ({ handleUpdate }) => {
         </div>
       </div> */}
       <React.Fragment>
-        <Button
+        {/* <Button
           variant="outlined"
-          color="danger"
+          color="secondary"
           endDecorator={<DeleteForever />}
           onClick={() => setOpen(true)}
         >
-          Discard
-        </Button>
-        <Modal open={open}>
+          Log In
+        </Button> */}
+        <Modal open={true}>
           <ModalDialog
             variant="outlined"
             role="alertdialog"
@@ -187,11 +187,11 @@ const LoginForm = ({ handleUpdate }) => {
               // startDecorator={<WarningRoundedIcon />}
             >
               <div
-                style={{ display: "flex", justifyContent: "center" }}
+                style={{ display: 'flex', justifyContent: 'center' }}
                 className="logo-container"
               >
                 <img
-                  style={{ display: "flex", justifyContent: "center" }}
+                  style={{ display: 'flex', justifyContent: 'center' }}
                   className="logo"
                   src="./img/logo.png"
                   alt="Logo"
@@ -236,9 +236,9 @@ const LoginForm = ({ handleUpdate }) => {
             </Typography>
             <Box
               sx={{
-                display: "flex",
+                display: 'flex',
                 gap: 2,
-                justifyContent: "flex-end",
+                justifyContent: 'flex-end',
                 pt: 1,
               }}
             ></Box>
