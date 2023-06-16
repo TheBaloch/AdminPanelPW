@@ -22,6 +22,7 @@ export default function Appointments() {
     fetchAppointment();
   }, [_id]);
   if (!appointment) return <h1>Loading....</h1>;
+  else if (appointment.length === 0) return <h1>No Appointments</h1>;
   return (
     <div>
       {appointment.map((apt) => (
