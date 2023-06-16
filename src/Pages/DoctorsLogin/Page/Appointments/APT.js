@@ -1,34 +1,42 @@
-import React from 'react';
-import Chip from '@mui/material/Chip';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import TableHead from '@mui/material/TableHead';
+import React from "react";
+import Chip from "@mui/material/Chip";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import TableHead from "@mui/material/TableHead";
 
-import Accordion from '@mui/material/Accordion';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useState } from 'react';
-import { Modal, Button, ModalBody } from 'react-bootstrap';
-import axios from 'axios';
+import Accordion from "@mui/material/Accordion";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import Typography from "@mui/material/Typography";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useState } from "react";
+import { Modal, Button, ModalBody } from "react-bootstrap";
+import axios from "axios";
+
+import { Transition } from "react-transition-group";
+// import Button from '@mui/joy/Button';
+import Modalapprove from "@mui/joy/Modal";
+import ModalDialog from "@mui/joy/ModalDialog";
 
 export default function APT({ apt }) {
   const [expanded, setExpanded] = useState(false);
   const [petsdetail, showPetsdetail] = useState(false);
+
+  const [open, setOpen] = useState(false);
+
   const [pet, setPet] = useState({
-    breed: '',
-    gender: '',
-    months: '',
-    years: '',
-    vaccinated: '',
-    weight: '',
-    pet: '',
-    petName: '',
+    breed: "",
+    gender: "",
+    months: "",
+    years: "",
+    vaccinated: "",
+    weight: "",
+    pet: "",
+    petName: "",
   });
 
   const fetchPet = async () => {
@@ -39,14 +47,14 @@ export default function APT({ apt }) {
       setPet(response.data[0]);
       showPetsdetail(true);
     } catch (error) {
-      console.error('Error retrieving pets:', error);
-      throw new Error('Failed to retrieve pets');
+      console.error("Error retrieving pets:", error);
+      throw new Error("Failed to retrieve pets");
     }
   };
 
   const handlePetDetails = () => {
     if (apt.pet_id) fetchPet();
-    else alert('This is for another Pet');
+    else alert("This is for another Pet");
   };
 
   const handleChange = (panel) => (event, isExpanded) => {
@@ -55,13 +63,13 @@ export default function APT({ apt }) {
   function convertToWeekday(dateString) {
     const date = new Date(dateString);
     const weekdays = [
-      'Sunday',
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
     ];
     const weekdayIndex = date.getDay();
     const weekday = weekdays[weekdayIndex];
@@ -94,7 +102,7 @@ export default function APT({ apt }) {
                 {pet.gender}
               </Typography>
               <Typography variant="body1">
-                <strong>Age:</strong> {pet.years} <strong>Years,</strong>{' '}
+                <strong>Age:</strong> {pet.years} <strong>Years,</strong>{" "}
                 {pet.months} <strong>Months</strong>
               </Typography>
               <Typography variant="body1">
@@ -102,7 +110,7 @@ export default function APT({ apt }) {
                 <strong>Kgs</strong>
               </Typography>
               <Typography variant="body1">
-                <strong>Vaccinated:</strong> {pet.vaccinated ? 'Yes' : 'No'}
+                <strong>Vaccinated:</strong> {pet.vaccinated ? "Yes" : "No"}
               </Typography>
             </ModalBody>
           </Modal.Body>
@@ -115,13 +123,13 @@ export default function APT({ apt }) {
       </div>
       <TableContainer
         component={Paper}
-        style={{ width: '95%', marginLeft: '20px', marginTop: '50px' }}
+        style={{ width: "95%", marginLeft: "20px", marginTop: "50px" }}
       >
         <Table
           sx={{
-            marginLeft: '30px',
+            marginLeft: "30px",
             minWidth: 400,
-            width: '1020px',
+            width: "1020px",
           }}
           size="small"
           aria-label="a dense table"
@@ -144,7 +152,7 @@ export default function APT({ apt }) {
               <TableCell align="left">{apt.user_phone}</TableCell>
               <TableCell align="left">
                 {apt.datereq}:
-                <p style={{ fontWeight: 'bold', color: 'green' }}>
+                <p style={{ fontWeight: "bold", color: "green" }}>
                   {convertToWeekday(apt.datereq)}
                 </p>
               </TableCell>
@@ -154,7 +162,7 @@ export default function APT({ apt }) {
                   label="Petdetails"
                   variant="outlined"
                   // onClick={() => handleApprove(product._id)}
-                  style={{ backgroundColor: 'grey' }}
+                  style={{ backgroundColor: "grey" }}
                   onClick={handlePetDetails}
                 />
               </TableCell>
@@ -162,8 +170,9 @@ export default function APT({ apt }) {
                 <Chip
                   label="Approve"
                   variant="outlined"
+                  onClick={() => setOpen(true)}
                   // onClick={() => handleApprove(product._id)}
-                  style={{ backgroundColor: '#63F263' }}
+                  style={{ backgroundColor: "#63F263" }}
                 />
               </TableCell>
               <TableCell align="left">
@@ -171,33 +180,93 @@ export default function APT({ apt }) {
                   label="Reject"
                   variant="outlined"
                   // onClick={() => handleApprove(product._id)}
-                  style={{ backgroundColor: 'red' }}
+                  style={{ backgroundColor: "red" }}
                 />
               </TableCell>
             </TableRow>
           </TableBody>
         </Table>
         <Accordion
-          expanded={expanded === 'panel4'}
-          onChange={handleChange('panel4')}
+          expanded={expanded === "panel4"}
+          onChange={handleChange("panel4")}
         >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel4bh-content"
             id="panel4bh-header"
           >
-            <Typography sx={{ width: '33%', flexShrink: 0 }}>
-              <p style={{ marginLeft: '30px', color: 'red' }}>User Note*</p>
+            <Typography sx={{ width: "33%", flexShrink: 0 }}>
+              <p style={{ marginLeft: "30px", color: "red" }}>User Note*</p>
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
               {/* <TableCell align="left">{apt.note}</TableCell> */}
-              <p style={{ marginLeft: '30px', color: 'grey' }}>{apt.note}</p>
+              <p style={{ marginLeft: "30px", color: "grey" }}>{apt.text}</p>
             </Typography>
           </AccordionDetails>
         </Accordion>
       </TableContainer>
+
+      {/* ??????????????????????????????????????? new model  */}
+
+      <React.Fragment>
+        {/* <Button
+          variant="outlined"
+          color="neutral"
+          onClick={() => setOpen(true)}
+        >
+          Open modal
+        </Button> */}
+        <Transition in={open} timeout={400}>
+          {(state) => (
+            <Modalapprove
+              keepMounted
+              open={!["exited", "exiting"].includes(state)}
+              onClose={() => setOpen(false)}
+              slotProps={{
+                backdrop: {
+                  sx: {
+                    opacity: 0,
+                    backdropFilter: "none",
+                    transition: `opacity 400ms, backdrop-filter 400ms`,
+                    ...{
+                      entering: { opacity: 1, backdropFilter: "blur(8px)" },
+                      entered: { opacity: 1, backdropFilter: "blur(8px)" },
+                    }[state],
+                  },
+                },
+              }}
+              sx={{
+                visibility: state === "exited" ? "hidden" : "visible",
+              }}
+            >
+              <ModalDialog
+                aria-labelledby="fade-modal-dialog-title"
+                aria-describedby="fade-modal-dialog-description"
+                sx={{
+                  opacity: 0,
+                  transition: `opacity 300ms`,
+                  ...{
+                    entering: { opacity: 1 },
+                    entered: { opacity: 1 },
+                  }[state],
+                }}
+              >
+                <Typography id="fade-modal-dialog-title" component="h2">
+                  Transition modal
+                </Typography>
+                <Typography
+                  id="fade-modal-dialog-description"
+                  textColor="text.tertiary"
+                >
+                  Using `react-transition-group` to create a fade animation.
+                </Typography>
+              </ModalDialog>
+            </Modalapprove>
+          )}
+        </Transition>
+      </React.Fragment>
     </div>
   );
 }
