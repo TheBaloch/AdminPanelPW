@@ -6,6 +6,11 @@ import APT from './APT';
 export default function Appointments() {
   const { _id } = JSON.parse(localStorage.getItem('doctor'));
   const [appointment, setAppointment] = useState(null);
+  const [update, setUpdate] = useState(null);
+
+  const UPDATE = () => {
+    setUpdate('update');
+  };
 
   useEffect(() => {
     const fetchAppointment = async () => {
@@ -20,13 +25,15 @@ export default function Appointments() {
     };
 
     fetchAppointment();
-  }, [_id]);
+    setUpdate(null);
+  }, [_id, update]);
+
   if (!appointment) return <h1>Loading....</h1>;
   else if (appointment.length === 0) return <h1>No Appointments</h1>;
   return (
     <div>
       {appointment.map((apt) => (
-        <APT apt={apt} key={apt._id} />
+        <APT apt={apt} UPDATE={UPDATE} key={apt._id} />
       ))}
     </div>
   );

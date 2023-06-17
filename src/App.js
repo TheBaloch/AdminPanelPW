@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import DoctorsLogin from './Pages/DoctorsLogin/DoctorsLogin';
 import Home from './Pages/Home/Home';
 import LoginForm from './components/LoginForm/LoginForm';
+import './App.css';
 
 function App() {
   const handleUpdate = () => {
