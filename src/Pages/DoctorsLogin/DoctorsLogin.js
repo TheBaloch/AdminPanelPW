@@ -4,6 +4,9 @@ import './DoctorsLogin.css';
 import Navigation from './Navigation/Navigation';
 import Profile from './Page/Profile/Profile';
 import Appointments from './Page/Appointments/Appointments';
+import Pending from './Page/Appointments/Pending';
+import Approved from './Page/Appointments/Approved';
+import Rejected from './Page/Appointments/Rejected';
 
 export default function DoctorsLogin({ handleLogout }) {
   const [doctor, setDoctor] = useState(() => {
@@ -31,17 +34,17 @@ export default function DoctorsLogin({ handleLogout }) {
       case 'Home':
         return <div>Home</div>;
       case 'Appointments':
-        return (
-          <div>
-            <Appointments />
-          </div>
-        );
+        return <Appointments />;
       case 'profile':
         return <Profile handleUpdate={handleUpdate} />;
-      case 'history':
-        return <div>history</div>;
+      case 'Pending':
+        return <Pending />;
+      case 'Approved':
+        return <Approved />;
+      case 'Rejected':
+        return <Rejected />;
       case 'temp':
-        return <div>Temp</div>;
+        return <div>NuN</div>;
       default:
         return null;
     }
