@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { Avatar } from '@mui/material';
 
 export default function Profile({ handleUpdate }) {
   const [doctor, setDoctor] = useState();
+  const [image, setImage] = useState(null);
 
   const handleDoctorEdit = async () => {
     const formData = new FormData();
@@ -39,12 +40,9 @@ export default function Profile({ handleUpdate }) {
     }
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setDoctor((prevDoctor) => ({
-      ...prevDoctor,
-      [name]: value,
-    }));
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setDoctor((prevDoctor) => ({ ...prevDoctor, [name]: value }));
   };
 
   const handleImageChange = (e) => {
@@ -53,6 +51,7 @@ export default function Profile({ handleUpdate }) {
       ...prevDoctor,
       image: file,
     }));
+    setImage(file);
   };
 
   useEffect(() => {
@@ -63,7 +62,13 @@ export default function Profile({ handleUpdate }) {
           `http://localhost:5000/api/doctors/${_id}`
         );
         setDoctor(response.data);
-        console.log(response.data);
+
+        if (response.data.available_days === 'undefined') {
+          setDoctor((prevDoctor) => ({
+            ...prevDoctor,
+            available_days: '',
+          }));
+        }
       } catch (error) {
         console.error('Error fetching doctors:', error);
       }
@@ -72,94 +77,166 @@ export default function Profile({ handleUpdate }) {
   }, []);
 
   if (!doctor) return <h1>Loading....</h1>;
+
   return (
     <>
-      <Form>
-        <Form.Group controlId="formFirstName">
-          <Form.Label>First Name</Form.Label>
-          <Form.Control
-            type="text"
-            name="f_name"
-            value={doctor.f_name}
-            onChange={handleInputChange}
-          />
-        </Form.Group>
-        <Form.Group controlId="formLastName">
-          <Form.Label>Last Name</Form.Label>
-          <Form.Control
-            type="text"
-            name="l_name"
-            value={doctor.l_name}
-            onChange={handleInputChange}
-          />
-        </Form.Group>
+      <Form className="p-2 m-3">
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginBottom: '16px',
+          }}
+        >
+          <label htmlFor="profile-image-upload">
+            <Avatar
+              alt={`${doctor.f_name} ${doctor.l_name}`}
+              src={
+                image
+                  ? URL.createObjectURL(image)
+                  : `http://localhost:5000/${doctor.image}`
+              }
+              style={{
+                width: '150px',
+                height: '150px',
+                cursor: 'pointer',
+              }}
+            />
+            <input
+              id="profile-image-upload"
+              type="file"
+              accept="image/*"
+              style={{ display: 'none' }}
+              onChange={handleImageChange}
+            />
+          </label>
+        </div>
+        <div
+          style={{ display: 'flex', justifyContent: 'space-between' }}
+          className="mb-3"
+        >
+          <div style={{ width: '48%' }}>
+            <Form.Label>First Name</Form.Label>
+            <Form.Control
+              type="text"
+              name="f_name"
+              value={doctor.f_name}
+              onChange={handleInputChange}
+            />
+          </div>
 
-        <Form.Group controlId="formspecialization">
-          <Form.Label>Specialization</Form.Label>
-          <Form.Control
-            type="text"
-            name="specialization"
-            value={doctor.specialization}
-            onChange={handleInputChange}
-          />
-        </Form.Group>
+          <div style={{ width: '48%' }}>
+            <Form.Label>Last Name</Form.Label>
+            <Form.Control
+              type="text"
+              name="l_name"
+              value={doctor.l_name}
+              onChange={handleInputChange}
+            />
+          </div>
+        </div>
 
-        <Form.Group controlId="formAvailableDays">
-          <Form.Label>Available Days</Form.Label>
-          <Form.Control
-            type="text"
-            name="available_days"
-            value={doctor.available_days}
-            onChange={handleInputChange}
-          />
-        </Form.Group>
+        <div
+          style={{ display: 'flex', justifyContent: 'space-between' }}
+          className="mb-3"
+        >
+          <div style={{ width: '48%' }}>
+            <Form.Group controlId="formspecialization">
+              <Form.Label>Specialization</Form.Label>
+              <Form.Control
+                as="select"
+                name="specialization"
+                value={doctor.specialization}
+                onChange={handleInputChange}
+              >
+                <option value="">Select Specialization</option>
+                <option value="Cardiologist">Cardiologist</option>
+                <option value="Pediatrician">Pediatrician</option>
+                <option value="Orthopedic Surgeon">Orthopedic Surgeon</option>
+                <option value="Dermatologist">Dermatologist</option>
+                <option value="Surgeon">Surgeon</option>
+                <option value="Dentist">Dentist</option>
+                <option value="Nutritionist">Nutritionist</option>
+                <option value="Oncologist">Oncologist</option>
+                <option value="Neurologist">Neurologist</option>
+                <option value="Others">Others</option>
+              </Form.Control>
+            </Form.Group>
+          </div>
 
-        <Form.Group controlId="formPhone">
-          <Form.Label>Phone</Form.Label>
-          <Form.Control
-            type="text"
-            name="phone"
-            value={doctor.phone}
-            onChange={handleInputChange}
-          />
-        </Form.Group>
-        <Form.Group controlId="formEmail">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            type="email"
-            name="email"
-            value={doctor.email}
-            onChange={handleInputChange}
-          />
-        </Form.Group>
-        <Form.Group controlId="formPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            name="pass"
-            value={doctor.pass}
-            onChange={handleInputChange}
-          />
-        </Form.Group>
-        <Form.Group controlId="formImage">
-          <Form.Label>Current Image</Form.Label>
-          <br />
-          <img
-            src={`http://localhost:5000/${doctor.image}`}
-            alt={`${doctor.f_name} ${doctor.l_name}`}
-            style={{
-              height: '100px',
-              width: '100px',
-              marginBottom: '10px',
-            }}
-          />
-          <Form.Label>Upload New Image</Form.Label>
-          <Form.Control type="file" name="image" onChange={handleImageChange} />
-        </Form.Group>
+          <div style={{ width: '48%' }}>
+            <Form.Group controlId="formAvailableDays">
+              <Form.Label>Available Days</Form.Label>
+              <Form.Control
+                as="select"
+                name="available_days"
+                value={doctor.available_days}
+                onChange={handleInputChange}
+              >
+                <option value="">{doctor.available_days}</option>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+                <option value="Sunday">Sunday</option>
+              </Form.Control>
+            </Form.Group>
+          </div>
+        </div>
+
+        <div
+          style={{ display: 'flex', justifyContent: 'space-between' }}
+          className="mb-1"
+        >
+          <div style={{ width: '48%' }}>
+            <Form.Group controlId="formPhone">
+              <Form.Label>Phone</Form.Label>
+              <Form.Control
+                type="text"
+                name="phone"
+                value={doctor.phone}
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+          </div>
+
+          <div style={{ width: '48%' }}>
+            <Form.Group controlId="formEmail">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                name="email"
+                value={doctor.email}
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          {/* Password */}
+          <div style={{ width: '48%' }}>
+            <Form.Group controlId="formPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                name="pass"
+                value={doctor.pass}
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+          </div>
+          {/* Save Changes button */}
+          <div style={{ width: '48%', marginLeft: 'auto', marginTop: 'auto' }}>
+            <Button variant="primary" onClick={handleDoctorEdit}>
+              Save Changes
+            </Button>
+          </div>
+        </div>
       </Form>
-      <Button variant="primary" onClick={handleDoctorEdit}>
-        Save Changes
-      </Button>
     </>
   );
 }

@@ -31,9 +31,9 @@ ul li {
   gap: 5px;
 }
 ul li:hover {
-  color: #ab52e9;
+  color: wheat;
 }
 ul li:hover,
 button.selected {
-  color: #ab52e9;
+  color: wheat;
 }

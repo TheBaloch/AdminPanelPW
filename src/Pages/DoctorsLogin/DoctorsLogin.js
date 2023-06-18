@@ -71,15 +71,15 @@ export default function DoctorsLogin({ handleLogout }) {
           </button>
         </div>
         <div
-          style={{ height: '38.67rem', display: 'flex' }}
+          style={{ height: '38.67rem', display: 'flex', padding: 0 }}
           className="container-fluid"
         >
-          <div style={{ width: '14rem', position: 'sticky', top: 0 }}>
+          <div style={{ position: 'sticky', top: 0 }}>
             {<Navigation handleSelection={handleSidebarSelection} />}
           </div>
           <div
             style={{
-              width: '84%',
+              width: '100%',
               height: 'auto',
               background: '#f9fafe',
               overflow: 'auto',

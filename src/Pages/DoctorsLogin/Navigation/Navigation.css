@@ -24,6 +24,22 @@ body {
   color: inherit;
 }
 
+@media (max-width: 800px) {
+  .button_custon {
+    display: none;
+  }
+}
+
+.side{
+  width:14rem;
+}
+
+@media (max-width: 800px) {
+  .side {
+    width: 100px;
+  }
+}
+
 ul li {
   display: flex;
   /* justify-content: center; */
@@ -31,9 +47,9 @@ ul li {
   gap: 5px;
 }
 ul li:hover {
-  color: #ab52e9;
+  color: wheat;
 }
 ul li:hover,
 button.selected {
-  color: #ab52e9;
+  color: wheat;
 }
