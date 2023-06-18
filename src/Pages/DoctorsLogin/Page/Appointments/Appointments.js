@@ -29,7 +29,15 @@ export default function Appointments() {
   }, [_id, update]);
 
   if (!appointment) return <h1>Loading....</h1>;
-  else if (appointment.length === 0) return <h1>No Appointments</h1>;
+  else if (appointment.length === 0)
+    return (
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{ height: '85vh' }}
+      >
+        <h1>No Appointments Found</h1>
+      </div>
+    );
   return (
     <div>
       {appointment.map((apt) => (

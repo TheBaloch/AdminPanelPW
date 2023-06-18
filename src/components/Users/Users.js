@@ -29,6 +29,20 @@ export default function Users() {
 
   return (
     <div>
+      <div className="card w-100">
+        <div className="row">
+          <div className="col mb-3">
+            <strong>Name</strong>
+          </div>
+          <div className="col mb-3">
+            <strong>Email</strong>
+          </div>
+          <div className="col mb-3">
+            <strong>Phone</strong>
+          </div>
+        </div>
+      </div>
+
       {users.map((user) => (
         <User key={user._id} user={user} />
       ))}
