@@ -61,97 +61,118 @@ export default function DayCare() {
     setOpen(false);
   };
 
-  const toEdit = (ID, edit, val) => {
-    if (edit === "approvedcheck" && val) {
-      const generatedNumber = Math.floor(100000 + Math.random() * 900000);
-      axios
-        .get(`http://localhost:5000/api/daycare/${ID}`)
-        .then((response) => {
+  function convertToWeekday(dateString) {
+    const date = new Date(dateString);
+    const weekdays = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    const weekdayIndex = date.getDay();
+    const weekday = weekdays[weekdayIndex];
+    return weekday;
+    // console.log(weekday);
+  }
+  const toEditt = (ID, edit, val, date) => {
+    const currentDate = new Date().toLocaleDateString("en-CA");
+    // console.log(date);
+    if (new Date(date) < new Date(currentDate)) {
+      toast.error("The date has already passed.");
+    } else {
+      if (currentDate === date) {
+        if (edit === "pickedupstatus" && val) {
+          console.log();
+          const today = new Date();
+          const year = today.getFullYear();
+          const month = String(today.getMonth() + 1).padStart(2, "0");
+          const day = String(today.getDate()).padStart(2, "0");
+          const formattedDate = `${year}/${month}/${day}`;
+
           const updatedData = {
-            ...response.data,
             [edit]: val,
-            identity_number: generatedNumber.toString(),
+            pickupdate: formattedDate,
           };
+
           axios
             .put(`http://localhost:5000/api/daycare/${ID}`, updatedData)
             .then(() => {
               toast.success("Sucessfully updated");
               setDaycare(null);
               setTriger("true");
-              console.log(triger);
               window.location.reload();
             })
             .catch((error) => {
               console.error("Error updating daycare:", error);
             });
-        })
-        .catch((error) => {
-          console.error("Error retrieving data:", error);
-        });
-    } else if (edit === "pickedupstatus" && val) {
-      const today = new Date();
-      const year = today.getFullYear();
-      const month = String(today.getMonth() + 1).padStart(2, "0");
-      const day = String(today.getDate()).padStart(2, "0");
-      const formattedDate = `${year}/${month}/${day}`;
-
-      const updatedData = {
-        [edit]: val,
-        pickupdate: formattedDate,
-      };
-
-      axios
-        .put(`http://localhost:5000/api/daycare/${ID}`, updatedData)
-        .then(() => {
-          toast.success("Sucessfully updated");
-          setDaycare(null);
-          setTriger("true");
-          window.location.reload();
-        })
-        .catch((error) => {
-          console.error("Error updating daycare:", error);
-        });
-    } else {
-      console.log(ID, edit, val);
-      axios
-        .get(`http://localhost:5000/api/daycare/${ID}`)
-        .then((response) => {
-          const updatedData = {
-            ...response.data,
-            [edit]: val,
-          };
-          axios
-            .put(`http://localhost:5000/api/daycare/${ID}`, updatedData)
-            .then(() => {
-              toast.success("Sucessfully updated");
-              console.log("here");
-              setDaycare(null);
-              window.location.reload();
-            })
-            .catch((error) => {
-              console.error("Error updating daycare:", error);
-            });
-        })
-        .catch((error) => {
-          console.error("Error retrieving data:", error);
-        });
+        }
+      } else {
+        toast.error("Pickup is sheduled on " + date);
+      }
     }
   };
-
-  // else {
-  //   console.log(ID, edit, val);
-  //   axios
-  //     .get(`http://localhost:5000/api/daycare/${ID}`)
-  //     .then((response) => {
-  //       response.data[edit] = val;
-  //       toast.success("Sucessfully updated");
-  //       setDaycare(response.data);
-  //       window.location.reload();
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error retrieving data:", error);
-  //     });
-  // }
+  const toEdit = (ID, edit, val, date) => {
+    const currentDate = new Date().toLocaleDateString("en-CA");
+    // console.log(date);
+    if (new Date(date) < new Date(currentDate)) {
+      toast.error("The date has already passed.");
+    } else {
+      if (edit === "approvedcheck" && val) {
+        const generatedNumber = Math.floor(100000 + Math.random() * 900000);
+        axios
+          .get(`http://localhost:5000/api/daycare/${ID}`)
+          .then((response) => {
+            const updatedData = {
+              ...response.data,
+              [edit]: val,
+              identity_number: generatedNumber.toString(),
+            };
+            axios
+              .put(`http://localhost:5000/api/daycare/${ID}`, updatedData)
+              .then(() => {
+                toast.success("Sucessfully updated");
+                setDaycare(null);
+                setTriger("true");
+                console.log(triger);
+                window.location.reload();
+              })
+              .catch((error) => {
+                console.error("Error updating daycare:", error);
+              });
+          })
+          .catch((error) => {
+            console.error("Error retrieving data:", error);
+          });
+      } else {
+        console.log(ID, edit, val);
+        axios
+          .get(`http://localhost:5000/api/daycare/${ID}`)
+          .then((response) => {
+            const updatedData = {
+              ...response.data,
+              [edit]: val,
+            };
+            axios
+              .put(`http://localhost:5000/api/daycare/${ID}`, updatedData)
+              .then(() => {
+                toast.success("Sucessfully updated");
+                console.log("here");
+                setDaycare(null);
+                window.location.reload();
+              })
+              .catch((error) => {
+                console.error("Error updating daycare:", error);
+              });
+          })
+          .catch((error) => {
+            console.error("Error retrieving data:", error);
+          });
+      }
+    }
+  };
 
   useEffect(() => {
     if (daycare) {
@@ -166,17 +187,6 @@ export default function DayCare() {
         });
     }
   }, [daycare]);
-
-  // useEffect(() => {
-  //   axios
-  //     .get('http://localhost:5000/api/users')
-  //     .then((response) => {
-  //       setUsers(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error fetching users:', error);
-  //     });
-  // }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -271,6 +281,9 @@ export default function DayCare() {
                         </TableCell>
                         <TableCell align="right">
                           <Typography>{entry.pickupdate}</Typography>
+                          <p style={{ fontWeight: "bold", color: "green" }}>
+                            {convertToWeekday(entry.pickupdate)}
+                          </p>
                         </TableCell>
 
                         <TableCell align="right">
@@ -298,7 +311,12 @@ export default function DayCare() {
                               label="Approve"
                               variant="outlined"
                               onClick={() => {
-                                toEdit(entry._id, "approvedcheck", true);
+                                toEdit(
+                                  entry._id,
+                                  "approvedcheck",
+                                  true,
+                                  entry.pickupdate
+                                );
                               }}
                               style={{ backgroundColor: "#63F263" }}
                             />
@@ -387,6 +405,9 @@ export default function DayCare() {
 
                             <TableCell align="right">
                               <Typography>{entry.pickupdate}</Typography>
+                              <p style={{ fontWeight: "bold", color: "green" }}>
+                                {convertToWeekday(entry.pickupdate)}
+                              </p>
                             </TableCell>
 
                             <TableCell align="right">
@@ -408,7 +429,12 @@ export default function DayCare() {
                                   label="PickedUp"
                                   variant="outlined"
                                   onClick={() => {
-                                    toEdit(entry._id, "pickedupstatus", true);
+                                    toEditt(
+                                      entry._id,
+                                      "pickedupstatus",
+                                      true,
+                                      entry.pickupdate
+                                    );
                                   }}
                                   style={{ backgroundColor: "#63F263" }}
                                 />
@@ -453,6 +479,9 @@ export default function DayCare() {
                           >
                             <TableCell align="left">
                               <Typography>{entry.pickupdate}</Typography>
+                              <p style={{ fontWeight: "bold", color: "green" }}>
+                                {convertToWeekday(entry.pickupdate)}
+                              </p>
                             </TableCell>
                             <TableCell align="right">
                               {entry.identity_number}
@@ -466,7 +495,10 @@ export default function DayCare() {
                               </Typography>
                             </TableCell>
                             <TableCell align="right">
-                              <span>Pet is being taken care</span>
+                              <p style={{ fontWeight: "bold", color: "green" }}>
+                                Pet is being taken care
+                              </p>
+                              {/* <span>Pet is being taken care</span> */}
                             </TableCell>
                           </TableRow>
                         </TableBody>
@@ -509,6 +541,9 @@ export default function DayCare() {
                           >
                             <TableCell align="left">
                               <Typography>{entry.dropoffdate}</Typography>
+                              <p style={{ fontWeight: "bold", color: "green" }}>
+                                {convertToWeekday(entry.pickupdate)}
+                              </p>
                             </TableCell>
                             <TableCell align="left">
                               <Typography>{entry.dropoffadress}</Typography>

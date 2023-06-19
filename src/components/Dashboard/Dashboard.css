@@ -1,0 +1,16 @@
+.elementstyle_span {
+  margin-top: -2px;
+  font-size: x-large;
+}
+
+.elementstyle_inn {
+  width: 60%;
+  display: flex;
+  align-content: center;
+  justify-content: flex-start;
+  align-items: flex-end;
+  flex-direction: column-reverse;
+  flex-wrap: wrap;
+  margin-top: 25px;
+  margin-left: 36px;
+}
