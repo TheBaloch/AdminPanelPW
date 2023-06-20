@@ -29,15 +29,15 @@ export default function Users() {
 
   return (
     <div>
-      <div className="card w-100">
+      <div className="card w-auto">
         <div className="row">
-          <div className="col mb-3">
+          <div className="col">
             <strong>Name</strong>
           </div>
-          <div className="col mb-3">
+          <div className="col">
             <strong>Email</strong>
           </div>
-          <div className="col mb-3">
+          <div className="col">
             <strong>Phone</strong>
           </div>
         </div>
