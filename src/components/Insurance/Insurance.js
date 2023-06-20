@@ -81,7 +81,9 @@ const AdminPanel = ({ userName }) => {
 
   const fetchSelectedPlans = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/selected-plans');
+      const response = await axios.get(
+        'http://localhost:5000/api/selected-plans'
+      );
       setSelectedPlans(response.data);
     } catch (error) {
       console.error(error);
@@ -100,11 +102,14 @@ const AdminPanel = ({ userName }) => {
 
   const handleUpdate = async () => {
     try {
-      await axios.put(`http://localhost:5000/api/selected-plans/${editingPlan.id}`, {
-        user: editingPlan.user,
-        planName: updatedPlanName,
-        planPrice: updatedPlanPrice,
-      });
+      await axios.put(
+        `http://localhost:5000/api/selected-plans/${editingPlan.id}`,
+        {
+          user: editingPlan.user,
+          planName: updatedPlanName,
+          planPrice: updatedPlanPrice,
+        }
+      );
       setEditingPlan(null);
       setUpdatedPlanName('');
       setUpdatedPlanPrice('');
@@ -182,10 +187,3 @@ const AdminPanel = ({ userName }) => {
 };
 
 export default AdminPanel;
-
-
-
-
-
-
-
