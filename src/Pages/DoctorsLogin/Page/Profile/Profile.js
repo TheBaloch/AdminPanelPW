@@ -89,7 +89,7 @@ export default function Profile({ handleUpdate }) {
             marginBottom: '16px',
           }}
         >
-          <label htmlFor="profile-image-upload">
+          <label htmlFor="profile-image-upload" className="btn">
             <Avatar
               alt={`${doctor.f_name} ${doctor.l_name}`}
               src={
