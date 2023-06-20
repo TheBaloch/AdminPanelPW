@@ -1,0 +1,42 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .selected-plans-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .selected-plans-table th,
+  .selected-plans-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  .selected-plans-table th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+  
+
+  .selected-plans-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .selected-plans-table tbody tr:hover {
+    background-color: #f0f0f0;
+  }
+  
+ 
+  .selected-plans-table td {
+    text-align: center;
+  }
