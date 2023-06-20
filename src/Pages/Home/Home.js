@@ -74,6 +74,7 @@ import Dashboard from '../../components/Dashboard/Dashboard';
 import './Home.css';
 import Doctors from '../../components/Doctors/Doctors';
 import BuyandSell from '../../components/BuyandSell/BuyandSell';
+import Verification from '../../components/Verification/Verification';
 
 const MainHome = ({ handleLogout }) => {
   const [selectedComponent, setSelectedComponent] = useState(
@@ -109,6 +110,8 @@ const MainHome = ({ handleLogout }) => {
         return <Orders />;
       case 'buyandsell':
         return <BuyandSell />;
+      case 'verification':
+        return <Verification />;
       default:
         return null;
     }
