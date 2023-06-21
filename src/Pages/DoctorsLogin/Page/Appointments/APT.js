@@ -37,6 +37,29 @@ export default function APT({ apt, UPDATE }) {
     petName: "",
   });
 
+  const handleUpdateVaccination = async (petId) => {
+    console.log(petId);
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/updatevaccination/${petId}`,
+        {
+          method: "PUT",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to update vaccination status");
+      }
+
+      const updatedPet = await response.json();
+      console.log("Updated pet:", updatedPet);
+      // Handle the updated pet object as needed
+    } catch (error) {
+      console.error("Error updating vaccination status:", error);
+      // Handle the error
+    }
+  };
+
   const fetchPet = async () => {
     try {
       const response = await axios.get(
@@ -216,7 +239,8 @@ export default function APT({ apt, UPDATE }) {
                     <Chip
                       label="vaccinated"
                       variant="outlined"
-                      // onClick={openApprove}
+                      onClick={() => handleUpdateVaccination(apt.pet_id)}
+                      // onClick={handleUpdateVaccination(apt.pet_id)}
                       style={{ backgroundColor: "#63F263" }}
                     />
                   </TableCell>
