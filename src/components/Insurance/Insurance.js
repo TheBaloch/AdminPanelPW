@@ -103,7 +103,7 @@ const AdminPanel = ({ userName }) => {
   const handleUpdate = async () => {
     try {
       await axios.put(
-        `http://localhost:5000/api/selected-plans/${editingPlan.id}`,
+        `${process.env.REACT_APP_API_URL}/api/selected-plans/${editingPlan.id}`,
         {
           user: editingPlan.user,
           planName: updatedPlanName,
@@ -121,7 +121,9 @@ const AdminPanel = ({ userName }) => {
 
   const handleDelete = async (plan) => {
     try {
-      await axios.delete(`http://localhost:5000/api/selected-plans/${plan.id}`);
+      await axios.delete(
+        `${process.env.REACT_APP_API_URL}/api/selected-plans/${plan.id}`
+      );
       fetchSelectedPlans();
     } catch (error) {
       console.error(error);

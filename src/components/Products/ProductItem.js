@@ -1,18 +1,18 @@
-import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
-import Box from "@mui/joy/Box";
-import Button from "@mui/joy/Button";
-import Divider from "@mui/joy/Divider";
-import Modal from "@mui/joy/Modal";
-import ModalDialog from "@mui/joy/ModalDialog";
-import DeleteForever from "@mui/icons-material/DeleteForever";
-import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
-import Typography from "@mui/joy/Typography";
-import EditProductModal from "../EditProductModal/EditProductModal";
-import React, { useState } from "react";
-import "./ProductItem.css";
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import Box from '@mui/joy/Box';
+import Button from '@mui/joy/Button';
+import Divider from '@mui/joy/Divider';
+import Modal from '@mui/joy/Modal';
+import ModalDialog from '@mui/joy/ModalDialog';
+import DeleteForever from '@mui/icons-material/DeleteForever';
+import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
+import Typography from '@mui/joy/Typography';
+import EditProductModal from '../EditProductModal/EditProductModal';
+import React, { useState } from 'react';
+import './ProductItem.css';
 
 function ProductItem({ product, onDelete, onUpdateProduct }) {
-  const imgURL = `http://localhost:5000/${product.image}`;
+  const imgURL = `${process.env.REACT_APP_API_URL}/${product.image}`;
 
   const [open, setOpen] = React.useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -31,7 +31,7 @@ function ProductItem({ product, onDelete, onUpdateProduct }) {
 
   return (
     <>
-      <div style={{ display: "inline-flex" }}>
+      <div style={{ display: 'inline-flex' }}>
         <article className="profile-section">
           <section className="profile-info">
             <table className="profile-table">
@@ -41,7 +41,7 @@ function ProductItem({ product, onDelete, onUpdateProduct }) {
                     <img
                       src={imgURL}
                       alt={product.name}
-                      style={{ height: "70px", width: "70px" }}
+                      style={{ height: '70px', width: '70px' }}
                     />
                     {product.name}
                   </td>
@@ -106,9 +106,9 @@ function ProductItem({ product, onDelete, onUpdateProduct }) {
             </Typography>
             <Box
               sx={{
-                display: "flex",
+                display: 'flex',
                 gap: 1,
-                justifyContent: "flex-end",
+                justifyContent: 'flex-end',
                 pt: 2,
               }}
             >

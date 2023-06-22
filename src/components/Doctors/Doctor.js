@@ -323,19 +323,19 @@
 
 // export default Doctor;
 
-import React, { useState } from "react";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import "./Doctor.css";
+import React, { useState } from 'react';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import './Doctor.css';
 
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import ListItemText from "@mui/material/ListItemText";
-import Select from "@mui/material/Select";
-import Checkbox from "@mui/material/Checkbox";
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import ListItemText from '@mui/material/ListItemText';
+import Select from '@mui/material/Select';
+import Checkbox from '@mui/material/Checkbox';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -349,32 +349,32 @@ const MenuProps = {
 };
 
 const days = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
 ];
 
 const times = [
-  "8am-9am",
-  "9am-10am",
-  "10am-11am",
-  "11am-12pm",
-  "12pm-1pm",
-  "1pm-2pm",
-  "2pm-3pm",
-  "3pm-4pm",
-  "4pm-5pm",
-  "5pm-6pm",
-  "6pm-7pm",
-  "7pm-8pm",
-  "8pm-9pm",
+  '8am-9am',
+  '9am-10am',
+  '10am-11am',
+  '11am-12pm',
+  '12pm-1pm',
+  '1pm-2pm',
+  '2pm-3pm',
+  '3pm-4pm',
+  '4pm-5pm',
+  '5pm-6pm',
+  '6pm-7pm',
+  '7pm-8pm',
+  '8pm-9pm',
 ];
 
 function Doctor({ doctor, onDelete, onUpdateDoctor }) {
-  const imgURL = `http://localhost:5000/${doctor.image}`;
+  const imgURL = `${process.env.REACT_APP_API_URL}/${doctor.image}`;
   const [showModal, setShowModal] = useState(false);
   const [editedDoctor, setEditedDoctor] = useState({
     f_name: doctor.f_name,
@@ -414,34 +414,34 @@ function Doctor({ doctor, onDelete, onUpdateDoctor }) {
 
   const handleDoctorEdit = async () => {
     const formData = new FormData();
-    formData.append("f_name", editedDoctor.f_name);
-    formData.append("l_name", editedDoctor.l_name);
-    formData.append("specialization", editedDoctor.specialization);
-    formData.append("available_days", editedDoctor.available_days);
-    formData.append("available_time", editedDoctor.available_time);
-    formData.append("phone", editedDoctor.phone);
-    formData.append("email", editedDoctor.email);
-    formData.append("pass", editedDoctor.pass);
-    formData.append("image", editedDoctor.image);
+    formData.append('f_name', editedDoctor.f_name);
+    formData.append('l_name', editedDoctor.l_name);
+    formData.append('specialization', editedDoctor.specialization);
+    formData.append('available_days', editedDoctor.available_days);
+    formData.append('available_time', editedDoctor.available_time);
+    formData.append('phone', editedDoctor.phone);
+    formData.append('email', editedDoctor.email);
+    formData.append('pass', editedDoctor.pass);
+    formData.append('image', editedDoctor.image);
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/doctors/${doctor._id}`,
+        `${process.env.REACT_APP_API_URL}/api/doctors/${doctor._id}`,
         {
-          method: "PUT",
+          method: 'PUT',
           body: formData,
         }
       );
 
       if (response.ok) {
-        console.log("Doctor updated successfully");
+        console.log('Doctor updated successfully');
         handleClose();
         onUpdateDoctor();
       } else {
-        console.error("Error updating doctor:", response.statusText);
+        console.error('Error updating doctor:', response.statusText);
       }
     } catch (error) {
-      console.error("Error updating doctor:", error);
+      console.error('Error updating doctor:', error);
     }
   };
 
@@ -471,11 +471,11 @@ function Doctor({ doctor, onDelete, onUpdateDoctor }) {
   };
 
   return (
-    <div style={{ display: "inline-flex" }} className="mdiv">
+    <div style={{ display: 'inline-flex' }} className="mdiv">
       <img
         src={imgURL}
         alt={`${doctor.f_name} ${doctor.l_name}`}
-        style={{ height: "60px", width: "60px", marginLeft: "5px" }}
+        style={{ height: '60px', width: '60px', marginLeft: '5px' }}
       />
       <p className="fname">{doctor.f_name}</p>
       <p className="para">{doctor.l_name}</p>
@@ -535,7 +535,7 @@ function Doctor({ doctor, onDelete, onUpdateDoctor }) {
                   value={selectedDays}
                   onChange={handleDayChange}
                   input={<OutlinedInput label="Select Days" />}
-                  renderValue={(selected) => selected.join(", ")}
+                  renderValue={(selected) => selected.join(', ')}
                   MenuProps={MenuProps}
                 >
                   {days.map((day) => (
@@ -558,7 +558,7 @@ function Doctor({ doctor, onDelete, onUpdateDoctor }) {
                   value={selectedTimes}
                   onChange={handleTimeChange}
                   input={<OutlinedInput label="Select Times" />}
-                  renderValue={(selected) => selected.join(", ")}
+                  renderValue={(selected) => selected.join(', ')}
                   MenuProps={MenuProps}
                 >
                   {times.map((time) => (

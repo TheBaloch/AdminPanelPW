@@ -21,7 +21,7 @@
 
 //   const fetchDoctors = async () => {
 //     try {
-//       const response = await axios.get('http://localhost:5000/api/doctors');
+//       const response = await axios.get('${process.env.REACT_APP_API_URL}/api/doctors');
 //       setDoctors(response.data);
 //     } catch (error) {
 //       console.error('Error fetching doctors:', error);
@@ -80,7 +80,7 @@
 //       formData.append('pass', newDoctor.pass);
 //       formData.append('image', newDoctor.image);
 
-//       await axios.post('http://localhost:5000/api/doctors', formData, {
+//       await axios.post('${process.env.REACT_APP_API_URL}/api/doctors', formData, {
 //         headers: {
 //           'Content-Type': 'multipart/form-data',
 //         },
@@ -99,7 +99,7 @@
 //     );
 //     if (confirmDelete) {
 //       try {
-//         await axios.delete(`http://localhost:5000/api/doctors/${doctorId}`);
+//         await axios.delete(`${process.env.REACT_APP_API_URL}/api/doctors/${doctorId}`);
 //         fetchDoctors(); // Fetch the updated list of doctors after successful deletion
 //       } catch (error) {
 //         console.error('Error deleting doctor:', error);
@@ -217,20 +217,20 @@
 
 // export default Doctors;
 
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import Doctor from "./Doctor";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import Doctor from './Doctor';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import ListItemText from "@mui/material/ListItemText";
-import Select from "@mui/material/Select";
-import Checkbox from "@mui/material/Checkbox";
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import ListItemText from '@mui/material/ListItemText';
+import Select from '@mui/material/Select';
+import Checkbox from '@mui/material/Checkbox';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -244,43 +244,43 @@ const MenuProps = {
 };
 
 const days = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
 ];
 
 const times = [
-  "8am-9am",
-  "9am-10am",
-  "10am-11am",
-  "11am-12pm",
-  "12pm-1pm",
-  "1pm-2pm",
-  "2pm-3pm",
-  "3pm-4pm",
-  "4pm-5pm",
-  "5pm-6pm",
-  "6pm-7pm",
-  "7pm-8pm",
-  "8pm-9pm",
+  '8am-9am',
+  '9am-10am',
+  '10am-11am',
+  '11am-12pm',
+  '12pm-1pm',
+  '1pm-2pm',
+  '2pm-3pm',
+  '3pm-4pm',
+  '4pm-5pm',
+  '5pm-6pm',
+  '6pm-7pm',
+  '7pm-8pm',
+  '8pm-9pm',
 ];
 
 function Doctors() {
   const [doctors, setDoctors] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [newDoctor, setNewDoctor] = useState({
-    f_name: "",
-    l_name: "",
-    specialization: "",
-    available_days: "",
-    phone: "",
-    email: "",
-    pass: "",
-    selectedDays: "",
-    selectedTimes: "",
+    f_name: '',
+    l_name: '',
+    specialization: '',
+    available_days: '',
+    phone: '',
+    email: '',
+    pass: '',
+    selectedDays: '',
+    selectedTimes: '',
     image: null,
   });
 
@@ -311,10 +311,12 @@ function Doctors() {
 
   const fetchDoctors = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/doctors");
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/doctors`
+      );
       setDoctors(response.data);
     } catch (error) {
-      console.error("Error fetching doctors:", error);
+      console.error('Error fetching doctors:', error);
     }
   };
 
@@ -329,15 +331,15 @@ function Doctors() {
   const handleClose = () => {
     setShowModal(false);
     setNewDoctor({
-      f_name: "",
-      l_name: "",
-      specialization: "",
-      available_days: "",
-      phone: "",
-      email: "",
-      pass: "",
-      selectedDays: "",
-      selectedTimes: "",
+      f_name: '',
+      l_name: '',
+      specialization: '',
+      available_days: '',
+      phone: '',
+      email: '',
+      pass: '',
+      selectedDays: '',
+      selectedTimes: '',
       image: null,
     });
   };
@@ -363,39 +365,45 @@ function Doctors() {
 
     try {
       const formData = new FormData();
-      formData.append("f_name", newDoctor.f_name);
-      formData.append("l_name", newDoctor.l_name);
-      formData.append("phone", newDoctor.phone);
-      formData.append("specialization", newDoctor.specialization);
-      formData.append("available_days", selectedDays);
-      formData.append("available_time", selectedTimes);
-      formData.append("email", newDoctor.email);
-      formData.append("pass", newDoctor.pass);
-      formData.append("image", newDoctor.image);
+      formData.append('f_name', newDoctor.f_name);
+      formData.append('l_name', newDoctor.l_name);
+      formData.append('phone', newDoctor.phone);
+      formData.append('specialization', newDoctor.specialization);
+      formData.append('available_days', selectedDays);
+      formData.append('available_time', selectedTimes);
+      formData.append('email', newDoctor.email);
+      formData.append('pass', newDoctor.pass);
+      formData.append('image', newDoctor.image);
 
-      await axios.post("http://localhost:5000/api/doctors", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/doctors`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
 
       handleClose();
       fetchDoctors(); // Fetch the updated list of doctors after successful addition
     } catch (error) {
-      console.error("Error adding doctor:", error);
+      console.error('Error adding doctor:', error);
     }
   };
 
   const handleDoctorDelete = async (doctorId) => {
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete this doctor?"
+      'Are you sure you want to delete this doctor?'
     );
     if (confirmDelete) {
       try {
-        await axios.delete(`http://localhost:5000/api/doctors/${doctorId}`);
+        await axios.delete(
+          `${process.env.REACT_APP_API_URL}/api/doctors/${doctorId}`
+        );
         fetchDoctors(); // Fetch the updated list of doctors after successful deletion
       } catch (error) {
-        console.error("Error deleting doctor:", error);
+        console.error('Error deleting doctor:', error);
       }
     }
   };
@@ -405,9 +413,9 @@ function Doctors() {
   };
 
   return (
-    <div style={{ width: "30rem" }}>
+    <div style={{ width: '30rem' }}>
       <h3 className="m-3 mx-4">
-        All Doctors{" "}
+        All Doctors{' '}
         <button onClick={handleAdd} className="btn btn-primary mx-5">
           Add New
         </button>
@@ -476,7 +484,7 @@ function Doctors() {
                   value={selectedDays}
                   onChange={handleDayChange}
                   input={<OutlinedInput label="Select Days" />}
-                  renderValue={(selected) => selected.join(", ")}
+                  renderValue={(selected) => selected.join(', ')}
                   MenuProps={MenuProps}
                 >
                   {days.map((day) => (
@@ -499,7 +507,7 @@ function Doctors() {
                   value={selectedTimes}
                   onChange={handleTimeChange}
                   input={<OutlinedInput label="Select Times" />}
-                  renderValue={(selected) => selected.join(", ")}
+                  renderValue={(selected) => selected.join(', ')}
                   MenuProps={MenuProps}
                 >
                   {times.map((time) => (

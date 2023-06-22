@@ -21,7 +21,7 @@ export default function Profile({ handleUpdate }) {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/doctors/${doctor._id}`,
+        `${process.env.REACT_APP_API_URL}/api/doctors/${doctor._id}`,
         {
           method: 'PUT',
           body: formData,
@@ -59,7 +59,7 @@ export default function Profile({ handleUpdate }) {
       const { _id } = JSON.parse(localStorage.getItem('doctor'));
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/doctors/${_id}`
+          `${process.env.REACT_APP_API_URL}/api/doctors/${_id}`
         );
         setDoctor(response.data);
 
@@ -95,7 +95,7 @@ export default function Profile({ handleUpdate }) {
               src={
                 image
                   ? URL.createObjectURL(image)
-                  : `http://localhost:5000/${doctor.image}`
+                  : `${process.env.REACT_APP_API_URL}/${doctor.image}`
               }
               style={{
                 width: '150px',

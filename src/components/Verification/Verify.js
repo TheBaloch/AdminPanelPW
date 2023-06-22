@@ -8,7 +8,7 @@ export default function Verify(verify) {
     <>
       <h1>Verification</h1>
       <img
-        src={`http://localhost:5000/${v.image}`}
+        src={`${process.env.REACT_APP_API_URL}/${v.image}`}
         alt="failed"
         style={{ width: '200px', height: '200px' }}
       />

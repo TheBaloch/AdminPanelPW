@@ -16,7 +16,7 @@ export default function Appointments() {
     const fetchAppointment = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/appointments/${_id}`
+          `${process.env.REACT_APP_API_URL}/api/appointments/${_id}`
         );
         setAppointment(response.data);
       } catch (error) {

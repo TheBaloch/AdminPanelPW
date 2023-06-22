@@ -11,7 +11,7 @@ export default function Users() {
     const fetchData = async () => {
       try {
         const { data: response } = await axios.get(
-          'http://localhost:5000/api/users'
+          `${process.env.REACT_APP_API_URL}/api/users`
         );
         setUsers(response);
       } catch (error) {

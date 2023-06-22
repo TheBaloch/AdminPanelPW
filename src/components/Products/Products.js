@@ -289,44 +289,46 @@
 
 // export default Products;
 
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import ProductItem from "./ProductItem";
-import AddProductModal from "../AddProductModal/AddProductModal";
-import { FaPlus } from "react-icons/fa";
-import "./Products.css";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import ProductItem from './ProductItem';
+import AddProductModal from '../AddProductModal/AddProductModal';
+import { FaPlus } from 'react-icons/fa';
+import './Products.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
 
 function Products() {
   const [products, setProducts] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [filterCategory, setFilterCategory] = useState("");
-  const [foodType, setFoodType] = useState("");
-  const [accessoriesType, setAccessoriesType] = useState("");
+  const [filterCategory, setFilterCategory] = useState('');
+  const [foodType, setFoodType] = useState('');
+  const [accessoriesType, setAccessoriesType] = useState('');
 
   const [newProduct, setNewProduct] = useState({
-    name: "",
-    category: "",
-    mainproduct: "",
-    categoryext: "Pets Food",
-    brand: "",
-    rating: "",
-    price: "",
-    description: "",
+    name: '',
+    category: '',
+    mainproduct: '',
+    categoryext: 'Pets Food',
+    brand: '',
+    rating: '',
+    price: '',
+    description: '',
     image: null,
   });
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/products");
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/products`
+      );
       setProducts(response.data);
     } catch (error) {
-      console.error("Error fetching products:", error);
+      console.error('Error fetching products:', error);
     }
   };
 
@@ -341,19 +343,19 @@ function Products() {
   const handleClose = () => {
     setShowModal(false);
     setNewProduct({
-      name: "",
-      price: "",
-      description: "",
-      category: "",
-      mainproduct: "",
-      categoryext: "",
-      brand: "",
-      rating: "",
+      name: '',
+      price: '',
+      description: '',
+      category: '',
+      mainproduct: '',
+      categoryext: '',
+      brand: '',
+      rating: '',
       image: null,
     });
-    setFilterCategory("");
-    setFoodType("");
-    setAccessoriesType("");
+    setFilterCategory('');
+    setFoodType('');
+    setAccessoriesType('');
   };
 
   const handleInputChange = (e) => {
@@ -383,42 +385,48 @@ function Products() {
       !newProduct.description ||
       !newProduct.image
     ) {
-      toast.error("Please fill in all the required fields");
+      toast.error('Please fill in all the required fields');
       return;
     }
 
     try {
       const formData = new FormData();
-      formData.append("name", newProduct.name);
-      formData.append("category", newProduct.category);
-      formData.append("mainproduct", newProduct.mainproduct);
-      formData.append("categoryext", newProduct.categoryext);
-      formData.append("brand", newProduct.brand);
-      formData.append("rating", newProduct.rating);
-      formData.append("price", newProduct.price);
-      formData.append("description", newProduct.description);
-      formData.append("image", newProduct.image);
+      formData.append('name', newProduct.name);
+      formData.append('category', newProduct.category);
+      formData.append('mainproduct', newProduct.mainproduct);
+      formData.append('categoryext', newProduct.categoryext);
+      formData.append('brand', newProduct.brand);
+      formData.append('rating', newProduct.rating);
+      formData.append('price', newProduct.price);
+      formData.append('description', newProduct.description);
+      formData.append('image', newProduct.image);
 
-      await axios.post("http://localhost:5000/api/products", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/products`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
 
       handleClose();
       fetchProducts();
-      toast.success("Product Added");
+      toast.success('Product Added');
     } catch (error) {
-      console.error("Error adding product:", error);
+      console.error('Error adding product:', error);
     }
   };
 
   const handleProductDelete = async (productId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/products/${productId}`);
+      await axios.delete(
+        `${process.env.REACT_APP_API_URL}/api/products/${productId}`
+      );
       fetchProducts();
     } catch (error) {
-      console.error("Error deleting product:", error);
+      console.error('Error deleting product:', error);
     }
   };
 
@@ -441,22 +449,22 @@ function Products() {
   });
 
   return (
-    <div style={{ width: "30rem" }}>
+    <div style={{ width: '30rem' }}>
       <ToastContainer />
-      <FormControl style={{ marginTop: "20px", marginLeft: "30px" }}>
+      <FormControl style={{ marginTop: '20px', marginLeft: '30px' }}>
         <InputLabel id="main-product-label">Category</InputLabel>
         <Select
-          style={{ width: "140px", height: "60px" }}
+          style={{ width: '140px', height: '60px' }}
           labelId="main-product-label"
           id="main-product-select"
           name="mainproduct"
           value={filterCategory}
           onChange={(e) => {
             const value = e.target.value;
-            if (value === "") {
-              setFilterCategory("");
-              setFoodType("");
-              setAccessoriesType("");
+            if (value === '') {
+              setFilterCategory('');
+              setFoodType('');
+              setAccessoriesType('');
             } else {
               setFilterCategory(value);
             }
@@ -471,11 +479,11 @@ function Products() {
         </Select>
       </FormControl>
 
-      {filterCategory === "Food" && (
-        <FormControl style={{ marginTop: "20px", marginLeft: "30px" }}>
+      {filterCategory === 'Food' && (
+        <FormControl style={{ marginTop: '20px', marginLeft: '30px' }}>
           <InputLabel id="food-type-label">Food Type</InputLabel>
           <Select
-            style={{ width: "140px", height: "60px" }}
+            style={{ width: '140px', height: '60px' }}
             labelId="food-type-label"
             id="food-type-select"
             name="foodType"
@@ -496,11 +504,11 @@ function Products() {
         </FormControl>
       )}
 
-      {filterCategory === "Accessories" && (
-        <FormControl style={{ marginTop: "20px", marginLeft: "30px" }}>
+      {filterCategory === 'Accessories' && (
+        <FormControl style={{ marginTop: '20px', marginLeft: '30px' }}>
           <InputLabel id="accessories-type-label">Accessories Type</InputLabel>
           <Select
-            style={{ width: "140px", height: "60px" }}
+            style={{ width: '140px', height: '60px' }}
             labelId="accessories-type-label"
             id="accessories-type-select"
             name="accessoriesType"
@@ -529,15 +537,15 @@ function Products() {
 
       <button
         style={{
-          marginTop: "15px",
-          marginLeft: "930px",
-          marginBottom: "-25px",
+          marginTop: '15px',
+          marginLeft: '930px',
+          marginBottom: '-25px',
         }}
         className="glow-on-hover"
         type="button"
         onClick={handleAdd}
       >
-        <FaPlus style={{ marginBottom: "4px" }} /> Add Product
+        <FaPlus style={{ marginBottom: '4px' }} /> Add Product
       </button>
 
       {filteredProducts.map((product) => (
