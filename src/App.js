@@ -5,6 +5,7 @@ import LoginForm from './components/LoginForm/LoginForm';
 import './App.css';
 
 function App() {
+  console.log(process.env.REACT_APP_API_URL);
   const handleUpdate = () => {
     setTrigger('UPDATE');
   };
