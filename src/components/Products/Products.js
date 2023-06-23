@@ -323,7 +323,9 @@ function Products() {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/products");
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/products`
+      );
       setProducts(response.data);
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -346,7 +348,7 @@ function Products() {
       description: "",
       category: "",
       mainproduct: "",
-      categoryext: "",
+      categoryext: "Pets Food",
       brand: "",
       rating: "",
       image: null,
@@ -399,11 +401,15 @@ function Products() {
       formData.append("description", newProduct.description);
       formData.append("image", newProduct.image);
 
-      await axios.post("http://localhost:5000/api/products", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/products`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       handleClose();
       fetchProducts();
@@ -415,7 +421,9 @@ function Products() {
 
   const handleProductDelete = async (productId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/products/${productId}`);
+      await axios.delete(
+        `${process.env.REACT_APP_API_URL}/api/products/${productId}`
+      );
       fetchProducts();
     } catch (error) {
       console.error("Error deleting product:", error);

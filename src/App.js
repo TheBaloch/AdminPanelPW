@@ -3,8 +3,10 @@ import DoctorsLogin from './Pages/DoctorsLogin/DoctorsLogin';
 import Home from './Pages/Home/Home';
 import LoginForm from './components/LoginForm/LoginForm';
 import './App.css';
+//Test
 
 function App() {
+  console.log(process.env.REACT_APP_API_URL);
   const handleUpdate = () => {
     setTrigger('UPDATE');
   };

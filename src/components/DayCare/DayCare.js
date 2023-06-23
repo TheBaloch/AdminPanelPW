@@ -1,27 +1,27 @@
-import React, { useState, useEffect } from "react";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import axios from "axios";
-import "./DayCare.css";
-import Chip from "@mui/material/Chip";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import TableHead from "@mui/material/TableHead";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React, { useState, useEffect } from 'react';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import axios from 'axios';
+import './DayCare.css';
+import Chip from '@mui/material/Chip';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import TableHead from '@mui/material/TableHead';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-import Box from "@mui/joy/Box";
-import Divider from "@mui/joy/Divider";
-import Modal from "@mui/joy/Modal";
-import ModalDialog from "@mui/joy/ModalDialog";
-import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
+import Box from '@mui/joy/Box';
+import Divider from '@mui/joy/Divider';
+import Modal from '@mui/joy/Modal';
+import ModalDialog from '@mui/joy/ModalDialog';
+import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 
 export default function DayCare() {
   const [daycareData, setDaycareData] = useState([]);
@@ -32,20 +32,20 @@ export default function DayCare() {
 
   const [open, setOpen] = React.useState(false);
 
-  const [filterOption, setFilterOption] = useState("all");
+  const [filterOption, setFilterOption] = useState('all');
 
   const [users, setUsers] = useState([]);
 
   const filteredData = daycareData.filter((entry) => {
-    if (filterOption === "all") {
+    if (filterOption === 'all') {
       return !entry.delivered;
-    } else if (filterOption === "pending") {
+    } else if (filterOption === 'pending') {
       return entry.approvedcheck === false;
-    } else if (filterOption === "drop") {
+    } else if (filterOption === 'drop') {
       return entry.dropoffstatus === true && entry.delivered === false;
-    } else if (filterOption === "rejected") {
+    } else if (filterOption === 'rejected') {
       return entry.requestrejected === true;
-    } else if (filterOption === "comp") {
+    } else if (filterOption === 'comp') {
       return entry.delivered === true;
     }
     return true;
@@ -64,13 +64,13 @@ export default function DayCare() {
   function convertToWeekday(dateString) {
     const date = new Date(dateString);
     const weekdays = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
     ];
     const weekdayIndex = date.getDay();
     const weekday = weekdays[weekdayIndex];
@@ -78,18 +78,18 @@ export default function DayCare() {
     // console.log(weekday);
   }
   const toEditt = (ID, edit, val, date) => {
-    const currentDate = new Date().toLocaleDateString("en-CA");
+    const currentDate = new Date().toLocaleDateString('en-CA');
     // console.log(date);
     if (new Date(date) < new Date(currentDate)) {
-      toast.error("The date has already passed.");
+      toast.error('The date has already passed.');
     } else {
       if (currentDate === date) {
-        if (edit === "pickedupstatus" && val) {
+        if (edit === 'pickedupstatus' && val) {
           console.log();
           const today = new Date();
           const year = today.getFullYear();
-          const month = String(today.getMonth() + 1).padStart(2, "0");
-          const day = String(today.getDate()).padStart(2, "0");
+          const month = String(today.getMonth() + 1).padStart(2, '0');
+          const day = String(today.getDate()).padStart(2, '0');
           const formattedDate = `${year}/${month}/${day}`;
 
           const updatedData = {
@@ -98,32 +98,35 @@ export default function DayCare() {
           };
 
           axios
-            .put(`http://localhost:5000/api/daycare/${ID}`, updatedData)
+            .put(
+              `${process.env.REACT_APP_API_URL}/api/daycare/${ID}`,
+              updatedData
+            )
             .then(() => {
-              toast.success("Sucessfully updated");
+              toast.success('Sucessfully updated');
               setDaycare(null);
-              setTriger("true");
+              setTriger('true');
               window.location.reload();
             })
             .catch((error) => {
-              console.error("Error updating daycare:", error);
+              console.error('Error updating daycare:', error);
             });
         }
       } else {
-        toast.error("Pickup is sheduled on " + date);
+        toast.error('Pickup is sheduled on ' + date);
       }
     }
   };
   const toEdit = (ID, edit, val, date) => {
-    const currentDate = new Date().toLocaleDateString("en-CA");
+    const currentDate = new Date().toLocaleDateString('en-CA');
     // console.log(date);
     if (new Date(date) < new Date(currentDate)) {
-      toast.error("The date has already passed.");
+      toast.error('The date has already passed.');
     } else {
-      if (edit === "approvedcheck" && val) {
+      if (edit === 'approvedcheck' && val) {
         const generatedNumber = Math.floor(100000 + Math.random() * 900000);
         axios
-          .get(`http://localhost:5000/api/daycare/${ID}`)
+          .get(`${process.env.REACT_APP_API_URL}/api/daycare/${ID}`)
           .then((response) => {
             const updatedData = {
               ...response.data,
@@ -131,44 +134,47 @@ export default function DayCare() {
               identity_number: generatedNumber.toString(),
             };
             axios
-              .put(`http://localhost:5000/api/daycare/${ID}`, updatedData)
+              .put(`${process.env.REACT_APP_API_URL}/${ID}`, updatedData)
               .then(() => {
-                toast.success("Sucessfully updated");
+                toast.success('Sucessfully updated');
                 setDaycare(null);
-                setTriger("true");
+                setTriger('true');
                 console.log(triger);
                 window.location.reload();
               })
               .catch((error) => {
-                console.error("Error updating daycare:", error);
+                console.error('Error updating daycare:', error);
               });
           })
           .catch((error) => {
-            console.error("Error retrieving data:", error);
+            console.error('Error retrieving data:', error);
           });
       } else {
         console.log(ID, edit, val);
         axios
-          .get(`http://localhost:5000/api/daycare/${ID}`)
+          .get(`${process.env.REACT_APP_API_URL}/api/daycare/${ID}`)
           .then((response) => {
             const updatedData = {
               ...response.data,
               [edit]: val,
             };
             axios
-              .put(`http://localhost:5000/api/daycare/${ID}`, updatedData)
+              .put(
+                `${process.env.REACT_APP_API_URL}/api/daycare/${ID}`,
+                updatedData
+              )
               .then(() => {
-                toast.success("Sucessfully updated");
-                console.log("here");
+                toast.success('Sucessfully updated');
+                console.log('here');
                 setDaycare(null);
                 window.location.reload();
               })
               .catch((error) => {
-                console.error("Error updating daycare:", error);
+                console.error('Error updating daycare:', error);
               });
           })
           .catch((error) => {
-            console.error("Error retrieving data:", error);
+            console.error('Error retrieving data:', error);
           });
       }
     }
@@ -179,11 +185,11 @@ export default function DayCare() {
       axios
         .put(`http://localhost:5000/api/daycare/${daycare._id}`, daycare)
         .then(() => {
-          console.log("Daycare updated successfully");
+          console.log('Daycare updated successfully');
           setDaycare(null);
         })
         .catch((error) => {
-          console.error("Error updating daycare:", error);
+          console.error('Error updating daycare:', error);
         });
     }
   }, [daycare]);
@@ -191,9 +197,9 @@ export default function DayCare() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const daycareResponse = axios.get("http://localhost:5000/api/daycare");
-        const petInfoResponse = axios.get("http://localhost:5000/api/pets/");
-        const userInfoResponse = axios.get("http://localhost:5000/api/users");
+        const daycareResponse = axios.get('http://localhost:5000/api/daycare');
+        const petInfoResponse = axios.get('http://localhost:5000/api/pets/');
+        const userInfoResponse = axios.get('http://localhost:5000/api/users');
         const [daycareRes, petInfoRes, userInfoRes] = await Promise.all([
           daycareResponse,
           petInfoResponse,
@@ -204,7 +210,7 @@ export default function DayCare() {
         setPetinfo(petInfoRes.data);
         setUsers(userInfoRes.data);
       } catch (error) {
-        console.error("Error fetching daycare data:", error);
+        console.error('Error fetching daycare data:', error);
       }
     };
 
@@ -215,7 +221,7 @@ export default function DayCare() {
   }, [triger]);
 
   return (
-    <div style={{ marginTop: "2%", marginLeft: "10px" }}>
+    <div style={{ marginTop: '2%', marginLeft: '10px' }}>
       <ToastContainer />
       <div>
         <span>Filters</span>
@@ -245,7 +251,7 @@ export default function DayCare() {
           return (
             <div
               key={entry._id}
-              style={{ width: "90%", marginTop: "6%", marginLeft: "5%" }}
+              style={{ width: '90%', marginTop: '6%', marginLeft: '5%' }}
             >
               <Typography>Daycare Request Details ID: {entry._id} </Typography>
               <Accordion disabled={entry.approvedcheck}>
@@ -273,7 +279,7 @@ export default function DayCare() {
                     <TableBody>
                       <TableRow
                         sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
+                          '&:last-child td, &:last-child th': { border: 0 },
                         }}
                       >
                         <TableCell align="right">
@@ -281,7 +287,7 @@ export default function DayCare() {
                         </TableCell>
                         <TableCell align="right">
                           <Typography>{entry.pickupdate}</Typography>
-                          <p style={{ fontWeight: "bold", color: "green" }}>
+                          <p style={{ fontWeight: 'bold', color: 'green' }}>
                             {convertToWeekday(entry.pickupdate)}
                           </p>
                         </TableCell>
@@ -299,7 +305,7 @@ export default function DayCare() {
                             <Chip
                               label="View Pet Details"
                               variant="outlined"
-                              style={{ backgroundColor: "grey" }}
+                              style={{ backgroundColor: 'grey' }}
                               onClick={() => handlePetdetails(pet)}
                             />
                           </Typography>
@@ -313,12 +319,12 @@ export default function DayCare() {
                               onClick={() => {
                                 toEdit(
                                   entry._id,
-                                  "approvedcheck",
+                                  'approvedcheck',
                                   true,
                                   entry.pickupdate
                                 );
                               }}
-                              style={{ backgroundColor: "#63F263" }}
+                              style={{ backgroundColor: '#63F263' }}
                             />
                           </Typography>
                         </TableCell>
@@ -328,9 +334,9 @@ export default function DayCare() {
                               label="Reject"
                               variant="outlined"
                               onClick={() => {
-                                toEdit(entry._id, "requestrejected", true);
+                                toEdit(entry._id, 'requestrejected', true);
                               }}
-                              style={{ backgroundColor: "#FC4E40" }}
+                              style={{ backgroundColor: '#FC4E40' }}
                             />
                           </Typography>
                         </TableCell>
@@ -366,7 +372,7 @@ export default function DayCare() {
                         <TableBody>
                           <TableRow
                             sx={{
-                              "&:last-child td, &:last-child th": { border: 0 },
+                              '&:last-child td, &:last-child th': { border: 0 },
                             }}
                           >
                             <TableCell align="right">
@@ -374,48 +380,48 @@ export default function DayCare() {
                             </TableCell>
 
                             <TableCell align="right">
-                              {entry.pickuptime === "1" && (
+                              {entry.pickuptime === '1' && (
                                 <div>09:00am-10:00am</div>
                               )}
-                              {entry.pickuptime === "2" && (
+                              {entry.pickuptime === '2' && (
                                 <div>10:00am-11:00am</div>
                               )}
-                              {entry.pickuptime === "3" && (
+                              {entry.pickuptime === '3' && (
                                 <div>11:00am-12:00pm</div>
                               )}
-                              {entry.pickuptime === "4" && (
+                              {entry.pickuptime === '4' && (
                                 <div>12:00pm-01:00pm</div>
                               )}
-                              {entry.pickuptime === "5" && (
+                              {entry.pickuptime === '5' && (
                                 <div>01:00pm-02:00pm</div>
                               )}
-                              {entry.pickuptime === "6" && (
+                              {entry.pickuptime === '6' && (
                                 <div>02:00pm-03:00pm</div>
                               )}
-                              {entry.pickuptime === "7" && (
+                              {entry.pickuptime === '7' && (
                                 <div>03:00pm-04:00pm</div>
                               )}
-                              {entry.pickuptime === "8" && (
+                              {entry.pickuptime === '8' && (
                                 <div>04:00pm-05:00pm</div>
                               )}
-                              {entry.pickuptime === "9" && (
+                              {entry.pickuptime === '9' && (
                                 <div>05:00pm-06:00pm</div>
                               )}
                             </TableCell>
 
                             <TableCell align="right">
                               <Typography>{entry.pickupdate}</Typography>
-                              <p style={{ fontWeight: "bold", color: "green" }}>
+                              <p style={{ fontWeight: 'bold', color: 'green' }}>
                                 {convertToWeekday(entry.pickupdate)}
                               </p>
                             </TableCell>
 
                             <TableCell align="right">
                               <Typography>
-                                {entry.toaldays === "1" && <div>1 day</div>}
-                                {entry.toaldays === "2" && <div>2 days</div>}
-                                {entry.toaldays === "3" && <div>3 days</div>}
-                                {entry.toaldays === "4" && <div>Notsure</div>}
+                                {entry.toaldays === '1' && <div>1 day</div>}
+                                {entry.toaldays === '2' && <div>2 days</div>}
+                                {entry.toaldays === '3' && <div>3 days</div>}
+                                {entry.toaldays === '4' && <div>Notsure</div>}
                               </Typography>
                             </TableCell>
 
@@ -431,12 +437,12 @@ export default function DayCare() {
                                   onClick={() => {
                                     toEditt(
                                       entry._id,
-                                      "pickedupstatus",
+                                      'pickedupstatus',
                                       true,
                                       entry.pickupdate
                                     );
                                   }}
-                                  style={{ backgroundColor: "#63F263" }}
+                                  style={{ backgroundColor: '#63F263' }}
                                 />
                               </Typography>
                             </TableCell>
@@ -472,14 +478,14 @@ export default function DayCare() {
                         <TableBody>
                           <TableRow
                             sx={{
-                              "&:last-child td, &:last-child th": {
+                              '&:last-child td, &:last-child th': {
                                 border: 0,
                               },
                             }}
                           >
                             <TableCell align="left">
                               <Typography>{entry.pickupdate}</Typography>
-                              <p style={{ fontWeight: "bold", color: "green" }}>
+                              <p style={{ fontWeight: 'bold', color: 'green' }}>
                                 {convertToWeekday(entry.pickupdate)}
                               </p>
                             </TableCell>
@@ -488,14 +494,14 @@ export default function DayCare() {
                             </TableCell>
                             <TableCell align="right">
                               <Typography>
-                                {entry.toaldays === "1" && <div>1 day</div>}
-                                {entry.toaldays === "2" && <div>2 days</div>}
-                                {entry.toaldays === "3" && <div>3 days</div>}
-                                {entry.toaldays === "4" && <div>Notsure</div>}
+                                {entry.toaldays === '1' && <div>1 day</div>}
+                                {entry.toaldays === '2' && <div>2 days</div>}
+                                {entry.toaldays === '3' && <div>3 days</div>}
+                                {entry.toaldays === '4' && <div>Notsure</div>}
                               </Typography>
                             </TableCell>
                             <TableCell align="right">
-                              <p style={{ fontWeight: "bold", color: "green" }}>
+                              <p style={{ fontWeight: 'bold', color: 'green' }}>
                                 Pet is being taken care
                               </p>
                               {/* <span>Pet is being taken care</span> */}
@@ -534,14 +540,14 @@ export default function DayCare() {
                         <TableBody>
                           <TableRow
                             sx={{
-                              "&:last-child td, &:last-child th": {
+                              '&:last-child td, &:last-child th': {
                                 border: 0,
                               },
                             }}
                           >
                             <TableCell align="left">
                               <Typography>{entry.dropoffdate}</Typography>
-                              <p style={{ fontWeight: "bold", color: "green" }}>
+                              <p style={{ fontWeight: 'bold', color: 'green' }}>
                                 {convertToWeekday(entry.pickupdate)}
                               </p>
                             </TableCell>
@@ -555,31 +561,31 @@ export default function DayCare() {
 
                             <TableCell align="left">
                               <Typography>
-                                {entry.dropofftime === "1" && (
+                                {entry.dropofftime === '1' && (
                                   <div>09:00am-10:00am</div>
                                 )}
-                                {entry.dropofftime === "2" && (
+                                {entry.dropofftime === '2' && (
                                   <div>10:00am-11:00am</div>
                                 )}
-                                {entry.dropofftime === "3" && (
+                                {entry.dropofftime === '3' && (
                                   <div>11:00am-12:00pm</div>
                                 )}
-                                {entry.dropofftime === "4" && (
+                                {entry.dropofftime === '4' && (
                                   <div>12:00pm-01:00pm</div>
                                 )}
-                                {entry.dropofftime === "5" && (
+                                {entry.dropofftime === '5' && (
                                   <div>01:00pm-02:00pm</div>
                                 )}
-                                {entry.dropofftime === "6" && (
+                                {entry.dropofftime === '6' && (
                                   <div>02:00pm-03:00pm</div>
                                 )}
-                                {entry.dropofftime === "7" && (
+                                {entry.dropofftime === '7' && (
                                   <div>03:00pm-04:00pm</div>
                                 )}
-                                {entry.dropofftime === "8" && (
+                                {entry.dropofftime === '8' && (
                                   <div>04:00pm-05:00pm</div>
                                 )}
-                                {entry.dropofftime === "9" && (
+                                {entry.dropofftime === '9' && (
                                   <div>05:00pm-06:00pm</div>
                                 )}
                               </Typography>
@@ -600,9 +606,9 @@ export default function DayCare() {
                                   label="Pet Dropedoff"
                                   variant="outlined"
                                   onClick={() => {
-                                    toEdit(entry._id, "delivered", true);
+                                    toEdit(entry._id, 'delivered', true);
                                   }}
-                                  style={{ backgroundColor: "#63F263" }}
+                                  style={{ backgroundColor: '#63F263' }}
                                 />
                               </Typography>
                             </TableCell>
@@ -626,7 +632,7 @@ export default function DayCare() {
             aria-describedby="alert-dialog-modal-description"
           >
             <Typography
-              style={{ fontSize: "30px" }}
+              style={{ fontSize: '30px' }}
               id="alert-dialog-modal-title"
               component="h1"
               startDecorator={<WarningRoundedIcon />}
@@ -639,9 +645,9 @@ export default function DayCare() {
                 id="alert-dialog-modal-description"
                 textColor="text.tertiary"
               >
-                <div style={{ fontSize: "20px", display: "flex" }}>
+                <div style={{ fontSize: '20px', display: 'flex' }}>
                   pet type:
-                  <div style={{ color: "grey" }}>{petdetail.pet}</div>
+                  <div style={{ color: 'grey' }}>{petdetail.pet}</div>
                 </div>
               </Typography>
             )}
@@ -651,9 +657,9 @@ export default function DayCare() {
                 id="alert-dialog-modal-description"
                 textColor="text.tertiary"
               >
-                <div style={{ fontSize: "20px", display: "flex" }}>
+                <div style={{ fontSize: '20px', display: 'flex' }}>
                   breed:
-                  <div style={{ color: "grey" }}>{petdetail.breed}</div>
+                  <div style={{ color: 'grey' }}>{petdetail.breed}</div>
                 </div>
               </Typography>
             )}
@@ -663,9 +669,9 @@ export default function DayCare() {
                 id="alert-dialog-modal-description"
                 textColor="text.tertiary"
               >
-                <div style={{ fontSize: "20px", display: "flex" }}>
+                <div style={{ fontSize: '20px', display: 'flex' }}>
                   Gender:
-                  <div style={{ color: "grey" }}>{petdetail.gender}</div>
+                  <div style={{ color: 'grey' }}>{petdetail.gender}</div>
                 </div>
               </Typography>
             )}
@@ -675,9 +681,9 @@ export default function DayCare() {
                 id="alert-dialog-modal-description"
                 textColor="text.tertiary"
               >
-                <div style={{ fontSize: "20px", display: "flex" }}>
+                <div style={{ fontSize: '20px', display: 'flex' }}>
                   weight:
-                  <div style={{ color: "grey" }}>{petdetail.weight}</div>
+                  <div style={{ color: 'grey' }}>{petdetail.weight}</div>
                 </div>
               </Typography>
             )}
@@ -686,9 +692,9 @@ export default function DayCare() {
                 id="alert-dialog-modal-description"
                 textColor="text.tertiary"
               >
-                <div style={{ fontSize: "20px", display: "flex" }}>
+                <div style={{ fontSize: '20px', display: 'flex' }}>
                   Age:
-                  <div style={{ display: "flex", color: "grey" }}>
+                  <div style={{ display: 'flex', color: 'grey' }}>
                     {petdetail.years}year {petdetail.months}month
                   </div>
                 </div>
@@ -697,9 +703,9 @@ export default function DayCare() {
 
             <Box
               sx={{
-                display: "flex",
+                display: 'flex',
                 gap: 1,
-                justifyContent: "flex-end",
+                justifyContent: 'flex-end',
                 pt: 2,
               }}
             ></Box>

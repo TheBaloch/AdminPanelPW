@@ -1,27 +1,27 @@
-import React, { useState } from "react";
-import Modal from "react-bootstrap/Modal";
-import Form from "react-bootstrap/Form";
+import React, { useState } from 'react';
+import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
 
-import Box from "@mui/material/Box";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import StepContent from "@mui/material/StepContent";
-import Button from "@mui/material/Button";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import TextField from "@mui/material/TextField";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import Box from '@mui/material/Box';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import StepContent from '@mui/material/StepContent';
+import Button from '@mui/material/Button';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import TextField from '@mui/material/TextField';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const steps = [
-  "Select campaign settings",
-  "Create an ad group",
-  "Create an ad",
+  'Select campaign settings',
+  'Create an ad group',
+  'Create an ad',
 ];
 
 function EditProductModal({ product, onUpdateProduct, onHide }) {
@@ -39,7 +39,7 @@ function EditProductModal({ product, onUpdateProduct, onHide }) {
     setActiveStep(0);
   };
 
-  const imgURL = `http://localhost:5000/${product.image}`;
+  const imgURL = `${process.env.REACT_APP_API_URL}/${product.image}`;
   const [editedProduct, setEditedProduct] = useState({
     name: product.name,
     price: product.price,
@@ -69,33 +69,33 @@ function EditProductModal({ product, onUpdateProduct, onHide }) {
 
   const handleProductEdit = async () => {
     const formData = new FormData();
-    formData.append("name", editedProduct.name);
-    formData.append("category", editedProduct.category);
-    formData.append("mainproduct", editedProduct.mainproduct);
-    formData.append("categoryext", editedProduct.categoryext);
-    formData.append("brand", editedProduct.brand);
-    formData.append("price", editedProduct.price);
-    formData.append("description", editedProduct.description);
-    formData.append("image", editedProduct.image);
+    formData.append('name', editedProduct.name);
+    formData.append('category', editedProduct.category);
+    formData.append('mainproduct', editedProduct.mainproduct);
+    formData.append('categoryext', editedProduct.categoryext);
+    formData.append('brand', editedProduct.brand);
+    formData.append('price', editedProduct.price);
+    formData.append('description', editedProduct.description);
+    formData.append('image', editedProduct.image);
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/products/${product._id}`,
+        `${process.env.REACT_APP_API_URL}/api/products/${product._id}`,
         {
-          method: "PUT",
+          method: 'PUT',
           body: formData,
         }
       );
 
       if (response.ok) {
-        toast.success("Product updated successfully");
+        toast.success('Product updated successfully');
         onUpdateProduct();
         onHide();
       } else {
-        toast.error("Error updating product:", response.statusText);
+        toast.error('Error updating product:', response.statusText);
       }
     } catch (error) {
-      console.error("Error updating product:", error);
+      console.error('Error updating product:', error);
     }
   };
 
@@ -119,7 +119,7 @@ function EditProductModal({ product, onUpdateProduct, onHide }) {
                         <div>
                           <TextField
                             id="outlined-basic"
-                            style={{ marginTop: "5px" }}
+                            style={{ marginTop: '5px' }}
                             label="title"
                             variant="outlined"
                             name="name"
@@ -131,7 +131,7 @@ function EditProductModal({ product, onUpdateProduct, onHide }) {
                               Product
                             </InputLabel>
                             <Select
-                              style={{ width: "160px" }}
+                              style={{ width: '160px' }}
                               labelId="main-product-label"
                               id="main-product-select"
                               name="mainproduct"
@@ -148,14 +148,14 @@ function EditProductModal({ product, onUpdateProduct, onHide }) {
                               </MenuItem>
                             </Select>
                           </FormControl>
-                          <div style={{ marginLeft: "3%" }}>
-                            {editedProduct.mainproduct === "Food" && (
+                          <div style={{ marginLeft: '3%' }}>
+                            {editedProduct.mainproduct === 'Food' && (
                               <FormControl>
                                 <InputLabel id="food-category-label">
                                   Food Category
                                 </InputLabel>
                                 <Select
-                                  style={{ width: "190px" }}
+                                  style={{ width: '190px' }}
                                   labelId="food-category-label"
                                   id="food-category-select"
                                   name="category"
@@ -181,13 +181,13 @@ function EditProductModal({ product, onUpdateProduct, onHide }) {
                                 </Select>
                               </FormControl>
                             )}
-                            {editedProduct.mainproduct === "Accessories" && (
+                            {editedProduct.mainproduct === 'Accessories' && (
                               <FormControl>
                                 <InputLabel id="accessories-category-label">
                                   Accessories Category
                                 </InputLabel>
                                 <Select
-                                  style={{ width: "210px" }}
+                                  style={{ width: '210px' }}
                                   labelId="accessories-category-label"
                                   id="accessories-category-select"
                                   name="category"
@@ -222,14 +222,14 @@ function EditProductModal({ product, onUpdateProduct, onHide }) {
                               </FormControl>
                             )}
                           </div>
-                          <div style={{ marginLeft: "3%" }}>
-                            {editedProduct.mainproduct === "Accessories" && (
+                          <div style={{ marginLeft: '3%' }}>
+                            {editedProduct.mainproduct === 'Accessories' && (
                               <FormControl>
                                 <InputLabel id="accessories-category-label">
                                   Accessories Type
                                 </InputLabel>
                                 <Select
-                                  style={{ width: "190px" }}
+                                  style={{ width: '190px' }}
                                   labelId="accessories-category-label"
                                   id="accessories-category-select"
                                   name="categoryext"
@@ -313,9 +313,9 @@ function EditProductModal({ product, onUpdateProduct, onHide }) {
                               src={imgURL}
                               alt={product.name}
                               style={{
-                                height: "100px",
-                                width: "100px",
-                                marginBottom: "10px",
+                                height: '100px',
+                                width: '100px',
+                                marginBottom: '10px',
                               }}
                             />
                             <Form.Label>Upload New Image</Form.Label>

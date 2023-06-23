@@ -116,7 +116,7 @@ const LoginForm = ({ handleUpdate }) => {
       if (email === 'admin@petsworld.com') {
         try {
           const response = await axios.post(
-            'http://localhost:5000/admin/verify',
+            `${process.env.REACT_APP_API_URL}/api/admin/verify`,
             {
               email,
               pass: password,
@@ -132,7 +132,7 @@ const LoginForm = ({ handleUpdate }) => {
       } else {
         try {
           const response = await axios.post(
-            'http://localhost:5000/api/doctors/login',
+            `${process.env.REACT_APP_API_URL}/api/doctors/login`,
             {
               email,
               pass: password,

@@ -11,7 +11,9 @@ const AdminPanel = ({ userName }) => {
 
   const fetchSelectedPlans = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/selected-plans');
+      const response = await axios.get(
+        'http://localhost:5000/api/selected-plans'
+      );
       setSelectedPlans(response.data);
     } catch (error) {
       console.error(error);
@@ -48,7 +50,9 @@ const AdminPanel = ({ userName }) => {
 
   const handleDelete = async (plan) => {
     try {
-      await axios.delete(`http://localhost:5000/api/selected-plans/${plan.id}`);
+      await axios.delete(
+        `${process.env.REACT_APP_API_URL}/api/selected-plans/${plan.id}`
+      );
       fetchSelectedPlans();
     } catch (error) {
       console.error(error);

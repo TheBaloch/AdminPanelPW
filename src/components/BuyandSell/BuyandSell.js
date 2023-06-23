@@ -1,49 +1,57 @@
-import axios from "axios";
-import * as React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { useEffect, useState } from "react";
-import Chip from "@mui/material/Chip";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
+import axios from 'axios';
+import * as React from 'react';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import { useEffect, useState } from 'react';
+import Chip from '@mui/material/Chip';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 
 export default function BuyandSell() {
   const [products, setProducts] = useState([]);
-  const [filter, setFilter] = useState("pending");
+  const [filter, setFilter] = useState('pending');
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/buyandsell");
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/buyandsell`
+      );
       setProducts(response.data);
     } catch (error) {
-      console.error("Error fetching products:", error);
+      console.error('Error fetching products:', error);
     }
   };
 
   const handleApprove = async (productId) => {
     try {
-      await axios.put(`http://localhost:5000/api/buyandsell/${productId}`, {
-        status: "approved",
-      });
+      await axios.put(
+        `${process.env.REACT_APP_API_URL}/api/buyandsell/${productId}`,
+        {
+          status: 'approved',
+        }
+      );
       fetchProducts();
     } catch (error) {
-      console.error("Error updating product status:", error);
+      console.error('Error updating product status:', error);
     }
   };
 
   const handleReject = async (productId) => {
     try {
-      await axios.put(`http://localhost:5000/api/buyandsell/${productId}`, {
-        status: "rejected",
-      });
+      await axios.put(
+        `${process.env.REACT_APP_API_URL}/api/buyandsell/${productId}`,
+        {
+          status: 'rejected',
+        }
+      );
       fetchProducts();
     } catch (error) {
-      console.error("Error updating product status:", error);
+      console.error('Error updating product status:', error);
     }
   };
 
@@ -60,7 +68,7 @@ export default function BuyandSell() {
       <Select
         value={filter}
         onChange={(e) => setFilter(e.target.value)}
-        style={{ marginBottom: "20px" }}
+        style={{ marginBottom: '20px' }}
       >
         <MenuItem value="pending">Pending Requests</MenuItem>
         <MenuItem value="rejected">Rejected Requests</MenuItem>
@@ -69,13 +77,13 @@ export default function BuyandSell() {
 
       <TableContainer
         component={Paper}
-        style={{ width: "95%", marginLeft: "20px", marginTop: "50px" }}
+        style={{ width: '95%', marginLeft: '20px', marginTop: '50px' }}
       >
         <Table
           sx={{
-            marginLeft: "30px",
+            marginLeft: '30px',
             minWidth: 400,
-            width: "1020px",
+            width: '1020px',
           }}
           size="small"
           aria-label="a dense table"
@@ -96,7 +104,7 @@ export default function BuyandSell() {
                 <TableCell align="left">
                   {product.images && product.images.length > 0 && (
                     <img
-                      style={{ height: "80px", width: "80px" }}
+                      style={{ height: '80px', width: '80px' }}
                       src={`http://localhost:5000/${product.images[0]}`}
                       alt={product.title}
                     />
@@ -110,54 +118,54 @@ export default function BuyandSell() {
                 <TableCell align="right">{product.city}</TableCell>
                 <TableCell align="right">{product.price}</TableCell>
                 <TableCell align="right">
-                  {!product.status === "approved" && (
+                  {!product.status === 'approved' && (
                     <Chip
                       label="Approve"
                       variant="outlined"
                       onClick={() => handleApprove(product._id)}
-                      style={{ backgroundColor: "#63F263" }}
+                      style={{ backgroundColor: '#63F263' }}
                     />
                   )}
-                  {product.status === "pending" && (
+                  {product.status === 'pending' && (
                     <Chip
                       label="Approve"
                       variant="outlined"
                       onClick={() => handleApprove(product._id)}
-                      style={{ backgroundColor: "#63F263" }}
+                      style={{ backgroundColor: '#63F263' }}
                     />
                   )}
-                  {product.status === "rejected" && (
+                  {product.status === 'rejected' && (
                     <Chip
                       label="Approve"
                       variant="outlined"
                       onClick={() => handleApprove(product._id)}
-                      style={{ backgroundColor: "#63F263" }}
+                      style={{ backgroundColor: '#63F263' }}
                     />
                   )}
                 </TableCell>
                 <TableCell align="left">
-                  {!product.status === "rejected" && (
+                  {!product.status === 'rejected' && (
                     <Chip
                       label="Reject"
                       variant="outlined"
                       onClick={() => handleReject(product._id)}
-                      style={{ backgroundColor: "#FC4E40" }}
+                      style={{ backgroundColor: '#FC4E40' }}
                     />
                   )}
-                  {product.status === "pending" && (
+                  {product.status === 'pending' && (
                     <Chip
                       label="Reject"
                       variant="outlined"
                       onClick={() => handleReject(product._id)}
-                      style={{ backgroundColor: "#FC4E40" }}
+                      style={{ backgroundColor: '#FC4E40' }}
                     />
                   )}
-                  {product.status === "approved" && (
+                  {product.status === 'approved' && (
                     <Chip
                       label="Reject"
                       variant="outlined"
                       onClick={() => handleReject(product._id)}
-                      style={{ backgroundColor: "#FC4E40" }}
+                      style={{ backgroundColor: '#FC4E40' }}
                     />
                   )}
                 </TableCell>

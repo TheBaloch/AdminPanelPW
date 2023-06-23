@@ -37,10 +37,33 @@ export default function APT({ apt, UPDATE }) {
     petName: '',
   });
 
+  const handleUpdateVaccination = async (petId) => {
+    console.log(petId);
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/updatevaccination/${petId}`,
+        {
+          method: 'PUT',
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to update vaccination status');
+      }
+
+      const updatedPet = await response.json();
+      console.log('Updated pet:', updatedPet);
+      // Handle the updated pet object as needed
+    } catch (error) {
+      console.error('Error updating vaccination status:', error);
+      // Handle the error
+    }
+  };
+
   const fetchPet = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/petbyid/${apt.pet_id}`
+        `${process.env.REACT_APP_API_URL}/api/petbyid/${apt.pet_id}`
       );
       if (response.data[0]) {
         setPet(response.data[0]);
@@ -87,7 +110,7 @@ export default function APT({ apt, UPDATE }) {
   const handleUpdate = async () => {
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/appointments`,
+        `${process.env.REACT_APP_API_URL}/api/appointments`,
         data
       );
       setData(res.data);
@@ -185,6 +208,58 @@ export default function APT({ apt, UPDATE }) {
             </TableRow>
           </TableBody>
         </Table>
+        {/* ////////////////////////////////////////////// */}
+        {apt.vaccination === 'true' ? (
+          <Accordion
+            expanded={expanded === 'panel3'}
+            onChange={handleChange('panel3')}
+            disabled={apt.status !== 'approved'}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel4bh-content"
+              id="panel4bh-header"
+            >
+              <Typography sx={{ width: '33%', flexShrink: 0 }}>
+                <span
+                  style={{
+                    fontWeight: 'bold',
+                    marginLeft: '30px',
+                    color: 'green',
+                  }}
+                >
+                  Appointment For vaccination*
+                </span>
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>
+                <TableRow>
+                  <TableCell align="left">
+                    <Chip
+                      label="vaccinated"
+                      variant="outlined"
+                      onClick={() => handleUpdateVaccination(apt.pet_id)}
+                      // onClick={handleUpdateVaccination(apt.pet_id)}
+                      style={{ backgroundColor: '#63F263' }}
+                    />
+                  </TableCell>
+
+                  <TableCell align="left">
+                    <Chip
+                      label="Decline"
+                      variant="outlined"
+                      onClick={openReject}
+                      style={{ backgroundColor: 'red' }}
+                    />
+                  </TableCell>
+                </TableRow>
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
+        ) : null}
+
+        {/* //////////////////////////////////////////// */}
         <Accordion
           expanded={expanded === 'panel4'}
           onChange={handleChange('panel4')}
@@ -204,7 +279,7 @@ export default function APT({ apt, UPDATE }) {
             <Typography>
               {/* <TableCell align="left">{apt.note}</TableCell> */}
               <span style={{ marginLeft: '30px', color: 'grey' }}>
-                {apt.text}
+                {apt.note}
               </span>
             </Typography>
           </AccordionDetails>
