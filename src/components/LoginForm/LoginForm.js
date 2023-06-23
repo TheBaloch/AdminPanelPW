@@ -116,7 +116,7 @@ const LoginForm = ({ handleUpdate }) => {
       if (email === 'admin@petsworld.com') {
         try {
           const response = await axios.post(
-            `${process.env.REACT_APP_API_URL}/admin/verify`,
+            `${process.env.REACT_APP_API_URL}/api/admin/verify`,
             {
               email,
               pass: password,
