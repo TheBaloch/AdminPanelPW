@@ -1,15 +1,7 @@
-import React from 'react';
-import axios from 'axios';
-import { useState, useEffect } from 'react';
-import Verify from './Verify';
-import Table from '@mui/material/Table';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import TableHead from '@mui/material/TableHead';
-import Accordion from '@mui/material/Accordion';
-
+import React from "react";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import Verify from "./Verify";
 export default function Verification() {
   const [verify, setVerify] = useState();
 
@@ -21,7 +13,7 @@ export default function Verification() {
         );
         setVerify(response.data);
       } catch (error) {
-        console.error('Error retrieving collection:', error);
+        console.error("Error retrieving collection:", error);
       }
     };
 
@@ -36,9 +28,12 @@ export default function Verification() {
     );
   return (
     <>
-      <Accordion>
+      {verify.map((verify) => (
+        <Verify key={verify.id} verify={verify} />
+      ))}
+      {/* <Accordion>
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: '400px' }} aria-label="simple table">
+          <Table sx={{ minWidth: "400px" }} aria-label="simple table">
             <TableHead>
               <TableRow>
                 <TableCell align="right">Picture</TableCell>
@@ -49,11 +44,8 @@ export default function Verification() {
               </TableRow>
             </TableHead>
           </Table>
-          {verify.map((verify) => (
-            <Verify key={verify.id} verify={verify} />
-          ))}
         </TableContainer>
-      </Accordion>
+      </Accordion> */}
     </>
   );
 }
