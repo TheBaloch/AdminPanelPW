@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Insurance.css';
-import { generateId } from '../../utils/utils';
+// import { generateId } from '../../utils/utils';
 
 const AdminPanel = ({ userName }) => {
   const [selectedPlans, setSelectedPlans] = useState([]);
@@ -24,29 +24,29 @@ const AdminPanel = ({ userName }) => {
     fetchSelectedPlans();
   }, []);
 
-  const handleEdit = (plan) => {
-    setEditingPlan(plan);
-    setUpdatedPlanName(plan.planName);
-    setUpdatedPlanPrice(plan.planPrice);
-  };
+  // const handleEdit = (plan) => {
+  //   setEditingPlan(plan);
+  //   setUpdatedPlanName(plan.planName);
+  //   setUpdatedPlanPrice(plan.planPrice);
+  // };
 
-  const handleUpdate = async () => {
-    try {
-      await axios.put(`http://localhost:5000/api/selected-plans/${editingPlan.id}`, {
-        id: generateId(),
-        userObjectId: editingPlan.userObjectId || editingPlan.user,
-        petObjectId: editingPlan.petObjectId || editingPlan.pet,
-        planName: updatedPlanName,
-        planPrice: updatedPlanPrice,
-      });
-      setEditingPlan(null);
-      setUpdatedPlanName('');
-      setUpdatedPlanPrice('');
-      fetchSelectedPlans();
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const handleUpdate = async () => {
+  //   try {
+  //     await axios.put(`http://localhost:5000/api/selected-plans/${editingPlan.id}`, {
+  //       id: generateId(),
+  //       userObjectId: editingPlan.userObjectId || editingPlan.user,
+  //       petObjectId: editingPlan.petObjectId || editingPlan.pet,
+  //       planName: updatedPlanName,
+  //       planPrice: updatedPlanPrice,
+  //     });
+  //     setEditingPlan(null);
+  //     setUpdatedPlanName('');
+  //     setUpdatedPlanPrice('');
+  //     fetchSelectedPlans();
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   const handleDelete = async (plan) => {
     try {
